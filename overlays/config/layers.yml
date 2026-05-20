@@ -1,0 +1,152 @@
+- leafletOsmId: "Historical"
+  code: "O"
+  layerId: "historical"
+  nameId: "historical"
+  canEmbed: true
+  source: openhistoricalmap
+  credit:
+    id: 'make_a_donation'
+    href: 'https://openstreetmap.app.neoncrm.com/forms/ohm'
+    donate: true
+
+- leafletOsmId: "Railway"
+  code: "R"
+  layerId: "railway"
+  nameId: "railway"
+  canEmbed: true
+  source: openhistoricalmap
+  credit:
+    id: 'make_a_donation'
+    href: 'https://openstreetmap.app.neoncrm.com/forms/ohm'
+    donate: true
+
+- leafletOsmId: "Woodblock"
+  code: "W"
+  layerId: "woodblock"
+  nameId: "woodblock"
+  canEmbed: true
+  source: openhistoricalmap
+  credit:
+    id: 'make_a_donation'
+    href: 'https://openstreetmap.app.neoncrm.com/forms/ohm'
+    donate: true
+
+- leafletOsmId: "JapaneseScroll"
+  code: "J"
+  layerId: "japanesescroll"
+  nameId: "japanesescroll"
+  canEmbed: true
+  source: openhistoricalmap
+  credit:
+    id: 'make_a_donation'
+    href: 'https://openstreetmap.app.neoncrm.com/forms/ohm'
+    donate: true
+
+- leafletOsmId: "Mapnik"
+  code: "M"
+  layerId: "mapnik"
+  nameId: "standard"
+  canEmbed: true
+  canDownloadImage: true
+  credit:
+    id: "make_a_donation"
+    href: "https://supporting.openstreetmap.org"
+    donate: true
+
+- leafletOsmId: "CyclOSM"
+  code: "Y"
+  layerId: "cyclosm"
+  nameId: "cyclosm"
+  canEmbed: true
+  credit:
+    id: "cyclosm_credit"
+    children:
+      cyclosm_link:
+        id: "cyclosm_name"
+        href: "https://www.cyclosm.org"
+      osm_france_link:
+        id: "osm_france"
+        href: "https://openstreetmap.fr/"
+
+- leafletOsmId: "CycleMap"
+  code: "C"
+  layerId: "cyclemap"
+  nameId: "cycle_map"
+  apiKeyId: "thunderforest_key"
+  canEmbed: true
+  canDownloadImage: true
+  credit:
+    id: "thunderforest_credit"
+    children:
+      thunderforest_link:
+        id: "andy_allan"
+        href: "https://www.thunderforest.com/"
+
+- leafletOsmId: "TransportMap"
+  leafletOsmDarkId: "TransportDarkMap"
+  code: "T"
+  layerId: "transportmap"
+  nameId: "transport_map"
+  apiKeyId: "thunderforest_key"
+  canEmbed: true
+  canDownloadImage: true
+  credit:
+    id: "thunderforest_credit"
+    children:
+      thunderforest_link:
+        id: "andy_allan"
+        href: "https://www.thunderforest.com/"
+
+- leafletOsmId: "TracestrackTopo"
+  code: "P"
+  layerId: "tracestracktopo"
+  nameId: "tracestracktop_topo"
+  apiKeyId: "tracestrack_key"
+  credit:
+    id: "tracestrack_credit"
+    children:
+      tracestrack_link:
+        id: "tracestrack"
+        href: "https://www.tracestrack.com/"
+
+- leafletOsmId: "HOT"
+  code: "H"
+  layerId: "hot"
+  nameId: "hot"
+  canEmbed: true
+  credit:
+    id: "hotosm_credit"
+    children:
+      hotosm_link:
+        id: "hotosm_name"
+        href: "https://www.hotosm.org/"
+      osm_france_link:
+        id: "osm_france"
+        href: "https://openstreetmap.fr/"
+
+- leafletOsmId: "ShortbreadColorful"
+  leafletOsmDarkId: "ShortbreadEclipse"
+  code: "S"
+  layerId: "shortbread"
+  nameId: "shortbread"
+  maxZoom: 23
+  credit:
+    id: "make_a_donation"
+    href: "https://supporting.openstreetmap.org"
+    donate: true
+
+- leafletOsmId: "OpenMapTiles"
+  code: "V"
+  layerId: "openmaptiles_osm"
+  nameId: "openmaptiles_osm"
+  apiKeyId: "maptiler_key"
+  maxZoom: 23
+  credit:
+    id: "openmaptiles_credit"
+    children:
+      openmaptiles_link:
+        id: "openmaptiles_name"
+        href: "https://openmaptiles.org/"
+      maptiler_link:
+        id: "maptiler_name"
+        href: "https://www.maptiler.com/"

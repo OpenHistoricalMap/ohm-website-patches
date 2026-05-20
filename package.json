@@ -1,0 +1,10 @@
+{
+  "name": "@openhistoricalmap/ohm-website-patches",
+  "version": "0.1.0",
+  "description": "OHM-specific overlays for files that conflict with upstream openstreetmap-website on merges",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/OpenHistoricalMap/ohm-website-patches.git"
+  }
+}

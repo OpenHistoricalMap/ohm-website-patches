@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>" dir="<%= dir %>">
+<head>
+  <meta charset="utf-8">
+  <title>OpenHistoricalMap</title>
+  <%= stylesheet_link_tag "errors", :media => "screen" %>
+  <%= render :partial => "layouts/meta" %>
+</head>
+<body>
+<main>
+  <a href="<%= root_path %>" class="logo">
+    <%= image_tag "ohm_logo.png", :srcset => image_path("ohm_logo_256.png"), :alt => t("layouts.logo.alt_text") %>
+  </a>
+  <div class="details">
+    <%= yield %>
+  </div>
+</main>
+</body>
+</html>

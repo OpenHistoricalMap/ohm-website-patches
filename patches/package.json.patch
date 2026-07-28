@@ -1,5 +1,5 @@
 diff --git a/package.json b/package.json
-index fce4271b2..181d9c2c2 100644
+index 34979a8e4..181d9c2c2 100644
 --- a/package.json
 +++ b/package.json
 @@ -1,12 +1,16 @@
@@ -12,7 +12,7 @@ index fce4271b2..181d9c2c2 100644
      "@mapbox/polyline": "^1.2.1",
      "@maplibre/maplibre-gl-leaflet": "^0.1.1",
      "@maptiler/maplibre-gl-omt-language": "^0.0.3",
--    "@openstreetmap/id": "2.40.0",
+-    "@openstreetmap/id": "2.41.2",
 +    "@openhistoricalmap/id": "2.39.5-ohm.2",
 +    "@openhistoricalmap/map-styles": "^0.9.17",
 +    "@openhistoricalmap/maplibre-gl-language": "^0.1.0",

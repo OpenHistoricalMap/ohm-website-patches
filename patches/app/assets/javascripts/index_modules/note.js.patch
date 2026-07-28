@@ -1,7 +1,7 @@
-diff --git a/app/assets/javascripts/index/note.js b/app/assets/javascripts/index/note.js
+diff --git a/app/assets/javascripts/index_modules/note.js b/app/assets/javascripts/index_modules/note.js
 index ad3844559..b2fdbb085 100644
---- a/app/assets/javascripts/index/note.js
-+++ b/app/assets/javascripts/index/note.js
+--- a/app/assets/javascripts/index_modules/note.js
++++ b/app/assets/javascripts/index_modules/note.js
 @@ -1,6 +1,6 @@
  OSM.Note = function (map) {
    const content = $("#sidebar_content"),

@@ -1,27 +1,9 @@
-diff --git a/app/assets/javascripts/index/query.js b/app/assets/javascripts/index/query.js
-index 50a961d4e..3d84803cb 100644
---- a/app/assets/javascripts/index/query.js
-+++ b/app/assets/javascripts/index/query.js
-@@ -87,8 +87,15 @@ OSM.Query = function (map) {
-   function featurePrefix(feature) {
-     const tags = feature.tags;
-     let prefix = "";
--
--    if (tags.boundary === "administrative" && (tags.border_type || tags.admin_level)) {
-+    // Keep in sync with qualified_boundary_types in Searches.NominatimQueriesController.create.
-+    const qualifiedBoundaryTypes = [
-+      "administrative",
-+      "census",
-+      "religious_administration",
-+      "statistical"
-+    ];
-+
-+    if (qualifiedBoundaryTypes.includes(tags.boundary) && (tags.border_type || tags.admin_level)) {
-       prefix = OSM.i18n.t("geocoder.search_osm_nominatim.border_types." + tags.border_type, {
-         defaultValue: OSM.i18n.t("geocoder.search_osm_nominatim.admin_levels.level" + tags.admin_level, {
-           defaultValue: OSM.i18n.t("geocoder.search_osm_nominatim.prefix.boundary.administrative")
-@@ -126,6 +133,52 @@ OSM.Query = function (map) {
-     return prefix;
+diff --git a/app/assets/javascripts/index_modules/query.js b/app/assets/javascripts/index_modules/query.js
+index c17cd430c..f47deb4b4 100644
+--- a/app/assets/javascripts/index_modules/query.js
++++ b/app/assets/javascripts/index_modules/query.js
+@@ -40,6 +40,52 @@ export default function (map) {
+     return false;
    }
  
 +  function featureSuffix(feature) {
@@ -70,10 +52,10 @@ index 50a961d4e..3d84803cb 100644
 +    return isNaN(date.getDate()) ? null : date;
 +  }
 +
-   function featureName(feature) {
-     const tags = feature.tags,
-           localeKeys = OSM.preferred_languages.map(locale => `name:${locale}`);
-@@ -152,7 +205,7 @@ OSM.Query = function (map) {
+   function featureGeometry(feature) {
+     switch (feature.type) {
+       case "node":
+@@ -54,7 +100,7 @@ export default function (map) {
      }
    }
  
@@ -82,7 +64,7 @@ index 50a961d4e..3d84803cb 100644
      const $ul = $section.find("ul");
  
      $ul.empty();
-@@ -163,6 +216,7 @@ OSM.Query = function (map) {
+@@ -65,6 +111,7 @@ export default function (map) {
      }
  
      $section.data("ajax", new AbortController());
@@ -90,8 +72,8 @@ index 50a961d4e..3d84803cb 100644
      fetch(OSM.OVERPASS_URL, {
        method: "POST",
        body: new URLSearchParams({
-@@ -178,7 +232,7 @@ OSM.Query = function (map) {
-         throw new Error(response.statusText || response.status);
+@@ -80,7 +127,7 @@ export default function (map) {
+         throw new Error(`HTTP Error ${response.status} ${response.statusText}`);
        })
        .then(function (results) {
 -        let elements = results.elements;
@@ -99,7 +81,7 @@ index 50a961d4e..3d84803cb 100644
  
          $section.find(".loader").hide();
  
-@@ -198,6 +252,11 @@ OSM.Query = function (map) {
+@@ -100,6 +147,11 @@ export default function (map) {
            }, {}));
          }
  
@@ -111,9 +93,9 @@ index 50a961d4e..3d84803cb 100644
          if (compare) {
            elements = elements.sort(compare);
          }
-@@ -216,6 +275,13 @@ OSM.Query = function (map) {
+@@ -118,6 +170,13 @@ export default function (map) {
              .data("geometry", featureGeometry(element))
-             .text(featureName(element))
+             .text(OSM.featureName(element))
              .appendTo($li);
 +
 +          const suffix = featureSuffix(element);
@@ -125,7 +107,7 @@ index 50a961d4e..3d84803cb 100644
          }
  
          if (results.remark) renderError($ul, results.remark);
-@@ -247,6 +313,21 @@ OSM.Query = function (map) {
+@@ -149,6 +208,21 @@ export default function (map) {
      return (maxlon - minlon) * (maxlat - minlat);
    }
  
@@ -147,7 +129,7 @@ index 50a961d4e..3d84803cb 100644
    /*
     * To find nearby objects we ask overpass for the union of the
     * following sets:
-@@ -266,6 +347,20 @@ OSM.Query = function (map) {
+@@ -168,6 +242,20 @@ export default function (map) {
     *
     * In both cases we then ask to retrieve tags and the geometry
     * for each object.
@@ -168,7 +150,7 @@ index 50a961d4e..3d84803cb 100644
     */
    function queryOverpass(latlng) {
      const bounds = map.getBounds(),
-@@ -275,10 +370,29 @@ OSM.Query = function (map) {
+@@ -177,10 +265,29 @@ export default function (map) {
            bbox = `${sw.lat},${sw.lng},${ne.lat},${ne.lng}`,
            geom = `geom(${bbox})`,
            radius = 10 * Math.pow(1.5, 19 - zoom),
@@ -202,7 +184,7 @@ index 50a961d4e..3d84803cb 100644
  
      $("#sidebar_content .query-intro")
        .hide();
-@@ -290,8 +404,8 @@ OSM.Query = function (map) {
+@@ -192,8 +299,8 @@ export default function (map) {
        ...featureStyle
      }).addTo(map);
  
@@ -213,7 +195,7 @@ index 50a961d4e..3d84803cb 100644
    }
  
    const page = {};
-@@ -313,6 +427,8 @@ OSM.Query = function (map) {
+@@ -214,6 +321,8 @@ export default function (map) {
      }
  
      queryOverpass([params.get("lat"), params.get("lon")]);

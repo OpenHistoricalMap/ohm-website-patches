@@ -1,7 +1,7 @@
-diff --git a/app/assets/javascripts/index/history.js b/app/assets/javascripts/index/history.js
+diff --git a/app/assets/javascripts/index_modules/history.js b/app/assets/javascripts/index_modules/history.js
 index 8b64a4432..dd43f6219 100644
---- a/app/assets/javascripts/index/history.js
-+++ b/app/assets/javascripts/index/history.js
+--- a/app/assets/javascripts/index_modules/history.js
++++ b/app/assets/javascripts/index_modules/history.js
 @@ -48,9 +48,9 @@ OSM.History = function (map) {
  
      changesetIntersectionObserver = new IntersectionObserver((entries) => {

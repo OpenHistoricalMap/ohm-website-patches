@@ -1,7 +1,7 @@
-diff --git a/app/assets/javascripts/index/export.js b/app/assets/javascripts/index/export.js
+diff --git a/app/assets/javascripts/index_modules/export.js b/app/assets/javascripts/index_modules/export.js
 index 5219fe54a..ea276b55e 100644
---- a/app/assets/javascripts/index/export.js
-+++ b/app/assets/javascripts/index/export.js
+--- a/app/assets/javascripts/index_modules/export.js
++++ b/app/assets/javascripts/index_modules/export.js
 @@ -103,7 +103,6 @@ OSM.Export = function (map) {
        .addEventListener("turbo:before-fetch-request", function (event) {
          event.detail.fetchOptions.headers.Accept = "application/xml";

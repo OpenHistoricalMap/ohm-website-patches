@@ -1,0 +1,14 @@
+diff --git a/app/assets/javascripts/index_modules/index.js b/app/assets/javascripts/index_modules/index.js
+index 98ea66b14..7e3ba55b4 100644
+--- a/app/assets/javascripts/index_modules/index.js
++++ b/app/assets/javascripts/index_modules/index.js
+@@ -11,6 +11,9 @@ export default function (map) {
+     if (params.has("query")) {
+       $("#sidebar .search_form input[name=query]").value(params.get("query"));
+     }
++
++    addOpenHistoricalMapTimeSlider(map);
++
+     return map.getState();
+   };
+ 

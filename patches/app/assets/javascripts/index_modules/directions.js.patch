@@ -1,7 +1,7 @@
-diff --git a/app/assets/javascripts/index/directions.js b/app/assets/javascripts/index/directions.js
+diff --git a/app/assets/javascripts/index_modules/directions.js b/app/assets/javascripts/index_modules/directions.js
 index ae2febd70..722561a82 100644
---- a/app/assets/javascripts/index/directions.js
-+++ b/app/assets/javascripts/index/directions.js
+--- a/app/assets/javascripts/index_modules/directions.js
++++ b/app/assets/javascripts/index_modules/directions.js
 @@ -266,6 +266,8 @@ OSM.Directions = function (map) {
      sidebarLoaded().then(enableListeners);
  

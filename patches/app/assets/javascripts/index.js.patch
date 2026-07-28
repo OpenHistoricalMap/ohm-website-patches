@@ -1,19 +1,23 @@
 diff --git a/app/assets/javascripts/index.js b/app/assets/javascripts/index.js
-index 385702271..c0aa4cc39 100644
+index 1ec154b85..e2c2d23fc 100644
 --- a/app/assets/javascripts/index.js
 +++ b/app/assets/javascripts/index.js
-@@ -9,6 +9,7 @@
- //= require leaflet.share
+@@ -10,9 +10,22 @@
  //= require leaflet.query
  //= require index/contextmenu
+ //= require index/initializations
 +//= require index/date_utils
- //= require index/search
++//= require index/search
  //= require index/layers/data
- //= require index/export
-@@ -21,7 +22,10 @@
- //= require index/query
- //= require index/home
- //= require index/element
+ //= require index/layers/notes
++//= require index/history
++//= require index/note
++//= require index/new_note
++//= require index/directions
++//= require index/changeset
++//= require index/query
++//= require index/home
++//= require index/element
 +//= require @openhistoricalmap/map-styles/dist/ohm.styles
 +//= require index/timeslider
  //= require router
@@ -21,7 +25,7 @@ index 385702271..c0aa4cc39 100644
  
  OSM.initializations = [];
  
-@@ -30,6 +34,9 @@ $(function () {
+@@ -21,6 +34,9 @@ $(function () {
      zoomControl: false,
      layerControl: false,
      contextmenu: true,
@@ -30,14 +34,4 @@ index 385702271..c0aa4cc39 100644
 +    maxBounds: [[-90, -360], [90, 360]],  /* prevents vector & raster maps from slipping out of sync at extreme latitudes */
      worldCopyJump: true
    });
- 
-@@ -282,6 +289,9 @@ $(function () {
-       if (params.has("query")) {
-         $("#sidebar .search_form input[name=query]").value(params.get("query"));
-       }
-+
-+      addOpenHistoricalMapTimeSlider(map);
-+
-       return map.getState();
-     };
  

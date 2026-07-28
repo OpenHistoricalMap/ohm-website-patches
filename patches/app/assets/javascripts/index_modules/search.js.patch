@@ -1,7 +1,7 @@
-diff --git a/app/assets/javascripts/index/search.js b/app/assets/javascripts/index/search.js
+diff --git a/app/assets/javascripts/index_modules/search.js b/app/assets/javascripts/index_modules/search.js
 index 2ad294740..f0b8401cd 100644
---- a/app/assets/javascripts/index/search.js
-+++ b/app/assets/javascripts/index/search.js
+--- a/app/assets/javascripts/index_modules/search.js
++++ b/app/assets/javascripts/index_modules/search.js
 @@ -91,10 +91,25 @@ OSM.Search = function (map) {
      }
    }

@@ -1,0 +1,34 @@
+diff --git a/app/assets/javascripts/index/element.js b/app/assets/javascripts/index/element.js
+index 08f27e21e..ddc6128e7 100644
+--- a/app/assets/javascripts/index/element.js
++++ b/app/assets/javascripts/index/element.js
+@@ -48,6 +48,9 @@
+           });
+         }
+       });
++
++      addOpenHistoricalMapTimeSlider(map);
++      addOpenHistoricalMapInspector();
+     };
+ 
+     page._removeObject = function () {
+@@ -164,4 +167,19 @@
+     }
+     return $("<tr>").append(cell);
+   }
++
++  // add the enhanced inspector
++  function addOpenHistoricalMapInspector() {
++    var inspector = new openhistoricalmap.OpenHistoricaMapInspector({
++      debug: true,
++      onFeatureFail: function (type, id) {
++        console.log([ 'failed to load feature', type, id ]);
++      },
++      onFeatureLoaded: function (type, id, xmldoc) {
++        console.log([ 'loaded feature', type, id, xmldoc ]);
++      },
++      apiBaseUrl: "/api",  // no trailing /
++    });
++    inspector.selectFeatureFromUrl();
++  }
+ }());

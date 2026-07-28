@@ -1,0 +1,18 @@
+diff --git a/app/views/accounts/terms/show.html.erb b/app/views/accounts/terms/show.html.erb
+index e4e96947d..a40872b74 100644
+--- a/app/views/accounts/terms/show.html.erb
++++ b/app/views/accounts/terms/show.html.erb
+@@ -115,4 +115,13 @@
+     <%= submit_tag(t(".continue"), :name => "continue", :id => "continue", :disabled => true, :class => "btn btn-primary") %>
+     <%= submit_tag(t(".cancel"), :name => "decline", :id => "decline", :class => "btn btn-outline-secondary") %>
+   </div>
++
++  <div class="mb-3">
++    <div class="form-check">
++      <%= check_box("user", "consider_pd", :class => "form-check-input") %>
++      <label for="user_consider_pd" class="form-check-label">
++        <%= t "accounts.pd_declarations.show.consider_pd" %>
++      </label>
++      <span class="minorNote">(<%= link_to(t("accounts.pd_declarations.show.consider_pd_why"), t("accounts.pd_declarations.show.consider_pd_why_url"), :target => :new) %>)</span>
++    </div>
+ <% end %>

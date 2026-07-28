@@ -1,0 +1,12 @@
+diff --git a/lib/id.rb b/lib/id.rb
+index f1ade5c85..332c1bde5 100644
+--- a/lib/id.rb
++++ b/lib/id.rb
+@@ -1,6 +1,6 @@
+ # frozen_string_literal: true
+ 
+ module ID
+-  ID_PATH = Rails.root.join("node_modules/@openstreetmap/id")
++  ID_PATH = Rails.root.join("node_modules/@openhistoricalmap/id")
+   LOCALES = Locale.list(Rails.root.join(ID_PATH, "dist/locales").entries.filter_map { |p| p.basename.to_s[/(.*)\.min\.json/] && Regexp.last_match(1) })
+ end

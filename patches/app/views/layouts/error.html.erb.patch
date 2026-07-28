@@ -1,0 +1,13 @@
+diff --git a/app/views/layouts/error.html.erb b/app/views/layouts/error.html.erb
+index 7140e28be..8bff69771 100644
+--- a/app/views/layouts/error.html.erb
++++ b/app/views/layouts/error.html.erb
+@@ -9,7 +9,7 @@
+   <body>
+     <main>
+       <a href="<%= root_path %>" class="logo">
+-        <%= image_tag "osm_logo.svg", :alt => t("layouts.logo.alt_text") %>
++        <%= image_tag "ohm_logo.svg", :alt => t("layouts.logo.alt_text") %>
+       </a>
+       <div class="details">
+         <%= yield %>

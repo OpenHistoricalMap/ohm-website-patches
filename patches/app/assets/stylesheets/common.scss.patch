@@ -1,0 +1,22 @@
+diff --git a/app/assets/stylesheets/common.scss b/app/assets/stylesheets/common.scss
+index 33230c62c..22c389bf7 100644
+--- a/app/assets/stylesheets/common.scss
++++ b/app/assets/stylesheets/common.scss
+@@ -851,7 +851,16 @@ div.secondary-actions {
+     }
+ 
+     .byosm {
+-      background: $vibrant-green;
++      top: 0px;
++      right: 0px;
++      z-index: 1;
++      width: 240px;
++      height: 150px;
++      padding: 20px 20px 20px 40px;
++      font: 500 20px/24px Helvetica, Arial, sans-serif;
++      white-space: normal;
++      color: #fff;
++      background: #76c551;
+     }
+ 
+     .byosm span {

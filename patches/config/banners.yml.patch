@@ -1,0 +1,34 @@
+diff --git a/config/banners.yml b/config/banners.yml
+index 52b9b64e2..36e808d0e 100644
+--- a/config/banners.yml
++++ b/config/banners.yml
+@@ -1,21 +1,9 @@
+-sotm_africa_2026:
+-  id: sotm_africa_2026
+-  alt: State of the Map Africa 2026
+-  link: https://2026.stateofthemap.africa
+-  img: banners/sotm_africa_2026.png
++donate_2026:
++  id: donate_2026
++  alt: OpenHistoricalMap 2026 Fundraiser
++  link: https://openstreetmap.app.neoncrm.com/forms/ohm-2026
++  img: banners/donate_2026.png
+   srcset:
+-    - [banners/sotm_africa_2026.png, 1x]
+-  startdate: 2026-may-26
+-  enddate: 2026-june-26
+-
+-5x1000_italy_2026:
+-  id: 5x1000_italy_2026
+-  alt: Destina il tuo 5x1000 a Wikimedia Italia
+-  link: https://cinquepermille.wikimedia.it/?mtm_campaign=5x1000_2026&mtm_kwd=OSM
+-  img: banners/5x1000_italy_2026.jpg
+-  srcset:
+-    - [banners/5x1000_italy_2026.jpg, 1x]
+-  startdate: 2026-may-10
+-  enddate: 2026-june-10
+-  countries:
+-    - IT
++    - [banners/donate_2026.png, 1x]
++    - [banners/donate_2026@2x.png, 2x]
++  enddate: 2026-jul-01

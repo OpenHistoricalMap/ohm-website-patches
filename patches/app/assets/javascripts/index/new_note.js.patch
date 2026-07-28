@@ -1,0 +1,22 @@
+diff --git a/app/assets/javascripts/index/new_note.js b/app/assets/javascripts/index/new_note.js
+index ab1caba93..872561cdd 100644
+--- a/app/assets/javascripts/index/new_note.js
++++ b/app/assets/javascripts/index/new_note.js
+@@ -149,7 +149,7 @@ OSM.NewNote = function (map) {
+       createNote(location, text, (feature) => {
+         if (typeof OSM.user === "undefined") {
+           const anonymousNotesCount = Number(OSM.cookies.get("_osm_anonymous_notes_count")) || 0;
+-          OSM.cookies.set("_osm_anonymous_notes_count", anonymousNotesCount + 1, { expires: 14 });
++            OSM.cookies.set("_osm_anonymous_notes_count", anonymousNotesCount + 1, { expires: 14 });
+         }
+         content.find("textarea").val("");
+         addCreatedNoteMarker(feature);
+@@ -161,6 +161,8 @@ OSM.NewNote = function (map) {
+     addNoteButton.on("disabled enabled", updateControls);
+     updateControls();
+ 
++    addOpenHistoricalMapTimeSlider(map);
++
+     return map.getState();
+   };
+ 

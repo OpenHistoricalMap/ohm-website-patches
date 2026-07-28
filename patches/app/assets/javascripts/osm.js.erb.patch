@@ -1,0 +1,81 @@
+diff --git a/app/assets/javascripts/osm.js.erb b/app/assets/javascripts/osm.js.erb
+index 35f02b7c5..97443359a 100644
+--- a/app/assets/javascripts/osm.js.erb
++++ b/app/assets/javascripts/osm.js.erb
+@@ -10,6 +10,7 @@ OSM = {
+       max_request_area
+       server_protocol
+       server_url
++      embed_server_url
+       api_version
+       status
+       max_note_request_area
+@@ -51,6 +52,9 @@ OSM = {
+   },
+ 
+   mapParams: function (search) {
++    // any params not handed back in parseHash() will be stripped when formatHash() is used to update URL params
++    // any params not in mapParams() will not be set up immediately on page load
++    // so keep the three in sync
+     const params = new URLSearchParams(search || location.search),
+           geoURI = OSM.parseGeoURI(params.get("geouri")),
+           mapParams = {};
+@@ -121,6 +125,21 @@ OSM = {
+ 
+     mapParams.layers = hash.layers || (loc && loc[3]) || "";
+ 
++    // timeslider state
++    if (hash.date) {
++      mapParams.date = hash.date
++    }
++    else {
++      mapParams.date = 1850;
++    }
++
++    if (hash.daterange) {
++      mapParams.daterange = hash.daterange;
++    }
++    else {
++      mapParams.daterange = [ 1800 , (new Date()).getFullYear() ].join(',');
++    }
++
+     const scale = parseFloat(params.get("scale"));
+     if (scale > 0) {
+       mapParams.zoom = Math.log(360.0 / (scale * 512.0)) / Math.log(2.0);
+@@ -153,6 +172,9 @@ OSM = {
+   },
+ 
+   parseHash: function (hash = location.hash) {
++    // any params not handed back in parseHash() will be stripped when formatHash() is used to update URL params
++    // any params not in mapParams() will not be set up immediately on page load
++    // so keep the three in sync
+     const i = hash.indexOf("#");
+     if (i < 0) return {};
+ 
+@@ -174,6 +196,10 @@ OSM = {
+       args.layers = hashParams.get("layers");
+     }
+ 
++    // timeslider state
++    if (hashParams.has("date")) args.date = hashParams.get("date");
++    if (hashParams.has("daterange")) args.daterange = hashParams.get("daterange");
++
+     return args;
+   },
+ 
+@@ -203,6 +229,15 @@ OSM = {
+       hash += "&layers=" + layers;
+     }
+ 
++    // timeslider state: make sure we got a map, which has the Leaflet control, which in turn does have the underlying real control ready
++    if (args instanceof L.Map && args.timeslider && args.timeslider instanceof L.Control.OHMTimeSlider) {
++      hash += '&date=' + args.timeslider.getDate();
++      hash += '&daterange=' + args.timeslider.getRange().join(',');
++    }
++    else {
++      if (args.date) hash += '&date=' + args.date;
++      if (args.daterange) hash += '&daterange=' + args.daterange;
++    }
+     return hash;
+   },
+ 

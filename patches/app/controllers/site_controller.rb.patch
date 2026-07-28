@@ -1,0 +1,15 @@
+diff --git a/app/controllers/site_controller.rb b/app/controllers/site_controller.rb
+index a6d9b4ab1..998491a3f 100644
+--- a/app/controllers/site_controller.rb
++++ b/app/controllers/site_controller.rb
+@@ -118,9 +118,7 @@ class SiteController < ApplicationController
+     @locale = params[:about_locale] || I18n.locale
+   end
+ 
+-  def communities
+-    @local_chapters = Community.where(:type => "osm-lc").where.not(:id => "OSMF")
+-  end
++  def ohm_privacy_policy; end
+ 
+   def export; end
+ 

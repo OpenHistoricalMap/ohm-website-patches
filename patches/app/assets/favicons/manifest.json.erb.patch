@@ -1,0 +1,43 @@
+diff --git a/app/assets/favicons/manifest.json.erb b/app/assets/favicons/manifest.json.erb
+index 6950a24a1..57ee038e2 100644
+--- a/app/assets/favicons/manifest.json.erb
++++ b/app/assets/favicons/manifest.json.erb
+@@ -1,24 +1,24 @@
+ {
+-	"name": "OpenStreetMap",
+-	"short_name": "OSM",
+-	"icons": <%= [36, 48, 72, 96, 144, 192].map { |res| {
++  "name": "OpenHistoricalMap",
++  "short_name": "OHM",
++  "icons": <%= [36, 48, 72, 96, 144, 192].map { |res| {
+ 			src: image_path("android-chrome-#{res}x#{res}.png"),
+ 			sizes: "#{res}x#{res}",
+ 			type: "image/png",
+ 			density: res.to_f / 48
+ 		} }.push({
+-			src: image_path("osm_logo.svg"),
++			src: image_path("ohm_logo.svg"),
+ 			sizes: "any",
+ 			type: "image/svg+xml"
+ 		}).to_json %>,
+-	"start_url": "/",
+-	"theme_color": "#7ebc6f",
+-	"background_color": "#fff",
+-	"display": "minimal-ui",
+-	"protocol_handlers": [
+-		{
+-			"protocol": "geo",
+-			"url": "/?geouri=%s"
+-		}
+-	]
++  "start_url": "/",
++  "theme_color": "#7ebc6f",
++  "background_color": "#fff",
++  "display": "minimal-ui",
++  "protocol_handlers": [
++    {
++      "protocol": "geo",
++      "url": "/?geouri=%s"
++    }
++  ]
+ }

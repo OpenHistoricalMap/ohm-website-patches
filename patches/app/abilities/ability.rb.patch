@@ -1,0 +1,15 @@
+diff --git a/app/abilities/ability.rb b/app/abilities/ability.rb
+index 4962f8a8c..e8d47c365 100644
+--- a/app/abilities/ability.rb
++++ b/app/abilities/ability.rb
+@@ -9,8 +9,8 @@ class Ability
+     can :read, [RelationMember, OldRelationMember]
+     can [:show, :create], Note
+     can :read, :directions
+-    can [:index, :permalink, :edit, :help, :fixthemap, :offline, :export, :about, :communities, :preview, :copyright, :id], :site
+-    can [:create, :show], :export
++    can [:index, :permalink, :edit, :help, :fixthemap, :offline, :export, :about, :preview, :copyright, :key, :id, :ohm_privacy_policy], :site
++    can [:create, :show, :embed], :export
+     can [:create, :read], :search
+ 
+     if Settings.status != "database_offline"

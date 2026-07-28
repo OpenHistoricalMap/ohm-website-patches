@@ -1,0 +1,26 @@
+diff --git a/test/controllers/api/users_controller_test.rb b/test/controllers/api/users_controller_test.rb
+index 13f73b35f..ff5770a79 100644
+--- a/test/controllers/api/users_controller_test.rb
++++ b/test/controllers/api/users_controller_test.rb
+@@ -431,8 +431,9 @@ module Api
+             assert_select "[agreed='false']", :count => 1
+           end
+ 
++          # OHM variant: account creation requires edits be in the Public Domain
+           if include_private
+-            assert_select "[pd='false']", :count => 1
++            assert_select "[pd='false']", :count => 0
+           else
+             assert_select "[pd]", :count => 0
+           end
+@@ -524,8 +525,9 @@ module Api
+ 
+       assert_operator js["user"]["contributor_terms"], :[], "agreed"
+ 
++      # OHM variant: account creation requires edits be in the Public Domain
+       if include_private
+-        assert_not js["user"]["contributor_terms"]["pd"]
++        assert_equal true, js["user"]["contributor_terms"]["pd"]
+       else
+         assert_nil js["user"]["contributor_terms"]["pd"]
+       end

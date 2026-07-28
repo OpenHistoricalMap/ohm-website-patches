@@ -1,0 +1,10 @@
+diff --git a/config/environments/development.rb b/config/environments/development.rb
+index ea0aa6fb4..dc78a256f 100644
+--- a/config/environments/development.rb
++++ b/config/environments/development.rb
+@@ -77,4 +77,5 @@ Rails.application.configure do
+ 
+   # Disable host validation.
+   config.hosts = []
++
+ end

@@ -1,0 +1,13 @@
+diff --git a/app/assets/javascripts/index/directions.js b/app/assets/javascripts/index/directions.js
+index ae2febd70..722561a82 100644
+--- a/app/assets/javascripts/index/directions.js
++++ b/app/assets/javascripts/index/directions.js
+@@ -266,6 +266,8 @@ OSM.Directions = function (map) {
+     sidebarLoaded().then(enableListeners);
+ 
+     map.setSidebarOverlaid(!endpoints[0].latlng || !endpoints[1].latlng);
++
++    addOpenHistoricalMapTimeSlider(map);
+   };
+ 
+   page.unload = function () {

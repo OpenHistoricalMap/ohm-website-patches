@@ -1,0 +1,13 @@
+diff --git a/docker-compose.yml b/docker-compose.yml
+index f8b3364cd..56133ceaa 100644
+--- a/docker-compose.yml
++++ b/docker-compose.yml
+@@ -22,6 +22,8 @@ services:
+     depends_on:
+       db:
+         condition: service_healthy
++    env_file:
++      - ohm-docker.env
+ 
+   db:
+     build:

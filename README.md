@@ -8,7 +8,7 @@ OHM customizations for [openstreetmap-website](https://github.com/openstreetmap/
 - `overlays/` — whole files OHM adds, plus modified binaries. `overlays/config/locales/overrides/en.yml` holds OHM strings; upstream `en.yml` is never patched.
 - `REMOVALS` — upstream files OHM deletes.
 - `UPSTREAM_BASE` — upstream commit the patches were last resolved against.
-- Excluded: `config/locales/*` (Translatewiki) and lockfiles (regenerate from the patched `Gemfile`/`package.json`).
+- Lockfiles (`Gemfile.lock`, `yarn.lock`) ship as overlays: full OHM locks so builds are reproducible. Regenerate them in the dev container after changing `Gemfile`/`package.json` (`bundle lock`, `yarn install`) and copy them from the merged tree into `overlays/`. Excluded: `config/locales/*` (Translatewiki).
 
 ## Scripts
 

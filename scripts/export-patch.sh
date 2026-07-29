@@ -15,7 +15,17 @@ if [[ "${1:-}" == "--all" ]]; then
   # generated lockfiles.
   FILES=()
   while IFS=$'\t' read -r added deleted f; do
-    case "$f" in Gemfile.lock|yarn.lock|db/structure.sql) continue ;; esac
+    case "$f" in
+      Gemfile.lock|yarn.lock)
+        # Lockfiles ship as overlays (generated files, not patches) —
+        # refresh the overlay copy when the merged one changed.
+        if ! cmp -s "$MERGED/$f" "$HERE/overlays/$f"; then
+          cp "$MERGED/$f" "$HERE/overlays/$f"
+          echo "overlay updated (lockfile): overlays/$f"
+        fi
+        continue ;;
+      db/structure.sql) continue ;;
+    esac
     [[ "$added" == "-" ]] && { echo "skip (binary, belongs in overlays/): $f"; continue; }
     [[ -f "$MERGED/$f" ]] || { echo "skip (deleted, covered by REMOVALS): $f"; continue; }
     FILES+=("$f")

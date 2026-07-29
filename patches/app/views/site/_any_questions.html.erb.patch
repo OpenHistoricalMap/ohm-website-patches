@@ -1,11 +1,12 @@
 diff --git a/app/views/site/_any_questions.html.erb b/app/views/site/_any_questions.html.erb
-index 988b3826e..d4db7b98a 100644
+index 988b3826e..c49b78443 100644
 --- a/app/views/site/_any_questions.html.erb
 +++ b/app/views/site/_any_questions.html.erb
-@@ -4,5 +4,5 @@
+@@ -3,6 +3,5 @@
+ <h2><%= t ".title" %></h2>
  <div class="d-flex align-items-center gap-2">
    <%= inline_svg_tag "welcome/question.svg", :class => "flex-shrink-0 align-self-start" %>
-   <p><%= t ".paragraph_1_html", :help_link => link_to(t(".get_help_here"), help_path),
+-  <p><%= t ".paragraph_1_html", :help_link => link_to(t(".get_help_here"), help_path),
 -                                :welcome_mat_link => link_to(t(".welcome_mat"), t(".welcome_mat_url")) %></p>
-+           :welcome_mat_link => link_to(t(".welcome_mat"), t(".welcome_mat_url")) %></p>
++  <p><%= t ".ohm_paragraph_1_html", :help_link => link_to(t(".get_help_here"), help_path) %></p>
  </div>

@@ -1,5 +1,5 @@
 diff --git a/app/views/layouts/map.html.erb b/app/views/layouts/map.html.erb
-index 294f31761..ba3e2e76e 100644
+index 294f31761..c4ab0069e 100644
 --- a/app/views/layouts/map.html.erb
 +++ b/app/views/layouts/map.html.erb
 @@ -31,10 +31,11 @@
@@ -10,7 +10,7 @@ index 294f31761..ba3e2e76e 100644
 -                                       :fastly => link_to(t("layouts.partners_fastly"), "https://www.fastly.com/"),
 -                                       :corpmembers => link_to(t("layouts.partners_corpmembers"), "https://osmfoundation.org/wiki/Corporate_Members"),
 -                                       :partners => link_to(t("layouts.partners_partners"), "https://hardware.openstreetmap.org/thanks/") %>
-+        <p class="fs-6 fw-light"><%= t "layouts.hosting_partners_2024_html",
++        <p class="fs-6 fw-light"><%= t "layouts.ohm_hosting_partners_html",
 +                                       :devseed => link_to(t("layouts.partners_devseed"), "https://developmentseed.org/"),
 +                                       :greeninfo => link_to(t("layouts.partners_greeninfo"), "https://greeninfo.org/"),
 +                                       :osmf => link_to(t("layouts.partners_osmf"), "https://osmfoundation.org/"),

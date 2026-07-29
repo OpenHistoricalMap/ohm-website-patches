@@ -1,11 +1,11 @@
 services:
   web:
     build:
-      context: .
+      context: ${MERGED_DIR:-../ohm-website-merged}
     environment:
       PIDFILE: /tmp/pids/server.pid
     volumes:
-      - .:/app
+      - ${MERGED_DIR:-../ohm-website-merged}:/app
       - /app/node_modules/
       - web-tmp:/app/tmp
       - web-storage:/app/storage

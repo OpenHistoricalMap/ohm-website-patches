@@ -1,5 +1,5 @@
 diff --git a/app/assets/javascripts/osm.js.erb b/app/assets/javascripts/osm.js.erb
-index 35f02b7c5..97443359a 100644
+index 43e7c1c3a..66da888be 100644
 --- a/app/assets/javascripts/osm.js.erb
 +++ b/app/assets/javascripts/osm.js.erb
 @@ -10,6 +10,7 @@ OSM = {
@@ -10,7 +10,7 @@ index 35f02b7c5..97443359a 100644
        api_version
        status
        max_note_request_area
-@@ -51,6 +52,9 @@ OSM = {
+@@ -57,6 +58,9 @@ OSM = {
    },
  
    mapParams: function (search) {
@@ -20,7 +20,7 @@ index 35f02b7c5..97443359a 100644
      const params = new URLSearchParams(search || location.search),
            geoURI = OSM.parseGeoURI(params.get("geouri")),
            mapParams = {};
-@@ -121,6 +125,21 @@ OSM = {
+@@ -127,6 +131,21 @@ OSM = {
  
      mapParams.layers = hash.layers || (loc && loc[3]) || "";
  
@@ -42,7 +42,7 @@ index 35f02b7c5..97443359a 100644
      const scale = parseFloat(params.get("scale"));
      if (scale > 0) {
        mapParams.zoom = Math.log(360.0 / (scale * 512.0)) / Math.log(2.0);
-@@ -153,6 +172,9 @@ OSM = {
+@@ -159,6 +178,9 @@ OSM = {
    },
  
    parseHash: function (hash = location.hash) {
@@ -52,7 +52,7 @@ index 35f02b7c5..97443359a 100644
      const i = hash.indexOf("#");
      if (i < 0) return {};
  
-@@ -174,6 +196,10 @@ OSM = {
+@@ -180,6 +202,10 @@ OSM = {
        args.layers = hashParams.get("layers");
      }
  
@@ -63,7 +63,7 @@ index 35f02b7c5..97443359a 100644
      return args;
    },
  
-@@ -203,6 +229,15 @@ OSM = {
+@@ -209,6 +235,15 @@ OSM = {
        hash += "&layers=" + layers;
      }
  

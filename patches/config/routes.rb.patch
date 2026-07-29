@@ -1,8 +1,8 @@
 diff --git a/config/routes.rb b/config/routes.rb
-index e63bed58e..69b67d566 100644
+index 57a4cd89f..f39bd6d32 100644
 --- a/config/routes.rb
 +++ b/config/routes.rb
-@@ -195,7 +195,6 @@ OpenStreetMap::Application.routes.draw do
+@@ -197,7 +197,6 @@ OpenStreetMap::Application.routes.draw do
    get "/help" => "site#help"
    get "/about/:about_locale" => "site#about"
    get "/about" => "site#about"
@@ -10,7 +10,7 @@ index e63bed58e..69b67d566 100644
    get "/history" => "changesets#index"
    get "/history/feed" => "changesets#feed", :defaults => { :format => :atom }
    scope "/history" do
-@@ -232,6 +231,9 @@ OpenStreetMap::Application.routes.draw do
+@@ -234,6 +233,9 @@ OpenStreetMap::Application.routes.draw do
    get "/create-account.html", :to => redirect(:path => "/user/new")
    get "/forgot-password.html", :to => redirect(:path => "/user/forgot-password")
  
@@ -18,5 +18,5 @@ index e63bed58e..69b67d566 100644
 +  get "/privacy-policy" => "site#ohm_privacy_policy"
 +
    # omniauth
-   get "/auth/failure" => "users#auth_failure"
-   match "/auth/:provider/callback" => "users#auth_success", :via => [:get, :post], :as => :auth_success
+   scope "/auth", :as => :auth do
+     get "/failure" => "users#auth_failure"

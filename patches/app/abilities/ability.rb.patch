@@ -1,5 +1,5 @@
 diff --git a/app/abilities/ability.rb b/app/abilities/ability.rb
-index 4962f8a8c..e8d47c365 100644
+index 1d747110a..bac832b65 100644
 --- a/app/abilities/ability.rb
 +++ b/app/abilities/ability.rb
 @@ -9,8 +9,8 @@ class Ability
@@ -11,5 +11,5 @@ index 4962f8a8c..e8d47c365 100644
 +    can [:index, :permalink, :edit, :help, :fixthemap, :offline, :export, :about, :preview, :copyright, :key, :id, :ohm_privacy_policy], :site
 +    can [:create, :show, :embed], :export
      can [:create, :read], :search
+     can [:create, :show], :auth_deletion
  
-     if Settings.status != "database_offline"

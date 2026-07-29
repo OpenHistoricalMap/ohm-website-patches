@@ -1,8 +1,8 @@
 diff --git a/app/assets/javascripts/index_modules/search.js b/app/assets/javascripts/index_modules/search.js
-index 2ad294740..f0b8401cd 100644
+index 1046acee7..26ad7ca26 100644
 --- a/app/assets/javascripts/index_modules/search.js
 +++ b/app/assets/javascripts/index_modules/search.js
-@@ -91,10 +91,25 @@ OSM.Search = function (map) {
+@@ -57,10 +57,25 @@ export default function (map) {
      }
    }
  
@@ -28,7 +28,7 @@ index 2ad294740..f0b8401cd 100644
  
      // Let clicks to object browser links propagate.
      if (data.type && data.id) return;
-@@ -130,6 +145,8 @@ OSM.Search = function (map) {
+@@ -97,6 +112,8 @@ export default function (map) {
          });
      });
  

@@ -1,18 +1,18 @@
 diff --git a/app/assets/javascripts/index_modules/note.js b/app/assets/javascripts/index_modules/note.js
-index ad3844559..b2fdbb085 100644
+index 006d7be31..d9440d835 100644
 --- a/app/assets/javascripts/index_modules/note.js
 +++ b/app/assets/javascripts/index_modules/note.js
 @@ -1,6 +1,6 @@
- OSM.Note = function (map) {
+ export default function (map) {
    const content = $("#sidebar_content"),
 -        page = {};
 +    page = {};
  
-   page.pushstate = page.popstate = function (path, id) {
-     OSM.loadSidebarContent(path, function () {
-@@ -13,14 +13,15 @@ OSM.Note = function (map) {
- 
    page.load = function (path, id) {
+     OSM.loadSidebarContent(path).then(function () {
+@@ -13,14 +13,15 @@ export default function (map) {
+ 
+   page.init = function (path, id) {
      initialize(path, id);
 +    addOpenHistoricalMapTimeSlider(map);
    };

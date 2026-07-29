@@ -1,5 +1,5 @@
 diff --git a/app/assets/config/manifest.js b/app/assets/config/manifest.js
-index d0536799a..820170b01 100644
+index 8c8d96b75..7e916a596 100644
 --- a/app/assets/config/manifest.js
 +++ b/app/assets/config/manifest.js
 @@ -7,13 +7,13 @@

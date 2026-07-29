@@ -1,8 +1,8 @@
 diff --git a/app/assets/javascripts/index_modules/history.js b/app/assets/javascripts/index_modules/history.js
-index 8b64a4432..dd43f6219 100644
+index 1f1bb62ec..8df10c3ac 100644
 --- a/app/assets/javascripts/index_modules/history.js
 +++ b/app/assets/javascripts/index_modules/history.js
-@@ -48,9 +48,9 @@ OSM.History = function (map) {
+@@ -49,9 +49,9 @@ export default function (map) {
  
      changesetIntersectionObserver = new IntersectionObserver((entries) => {
        let closestTargetToTop,
@@ -15,7 +15,7 @@ index 8b64a4432..dd43f6219 100644
  
        for (const entry of entries) {
          const id = $(entry.target).data("changeset")?.id;
-@@ -175,7 +175,7 @@ OSM.History = function (map) {
+@@ -176,7 +176,7 @@ export default function (map) {
      if (isHistory) {
        setBboxFetchData(data);
        const feedLink = $("link[type=\"application/atom+xml\"]"),
@@ -24,7 +24,7 @@ index 8b64a4432..dd43f6219 100644
        feedLink.attr("href", feedHref + "?" + data);
      }
  
-@@ -295,6 +295,8 @@ OSM.History = function (map) {
+@@ -297,6 +297,8 @@ export default function (map) {
      map.on("moveend", moveEndListener);
      map.on("zoomend", zoomEndListener);
      loadFirstChangesets();

@@ -1,5 +1,5 @@
 diff --git a/app/assets/javascripts/leaflet.map.js b/app/assets/javascripts/leaflet.map.js
-index f44bfebb9..1e9174efa 100644
+index ba12d7fbb..3eb143eac 100644
 --- a/app/assets/javascripts/leaflet.map.js
 +++ b/app/assets/javascripts/leaflet.map.js
 @@ -3,6 +3,10 @@ L.extend(L.LatLngBounds.prototype, {

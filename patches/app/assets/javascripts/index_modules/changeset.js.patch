@@ -1,8 +1,8 @@
 diff --git a/app/assets/javascripts/index_modules/changeset.js b/app/assets/javascripts/index_modules/changeset.js
-index 4f14c8deb..e74aef454 100644
+index 6f8538af1..d2bfd56a7 100644
 --- a/app/assets/javascripts/index_modules/changeset.js
 +++ b/app/assets/javascripts/index_modules/changeset.js
-@@ -30,6 +30,8 @@ OSM.Changeset = function (map) {
+@@ -29,6 +29,8 @@ export default function (map) {
        }
      });
      $(".numbered_pagination").trigger("numbered_pagination:enable");

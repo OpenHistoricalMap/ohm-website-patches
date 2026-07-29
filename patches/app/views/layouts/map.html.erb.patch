@@ -1,5 +1,5 @@
 diff --git a/app/views/layouts/map.html.erb b/app/views/layouts/map.html.erb
-index 145fbdd45..7223f4a17 100644
+index 294f31761..ba3e2e76e 100644
 --- a/app/views/layouts/map.html.erb
 +++ b/app/views/layouts/map.html.erb
 @@ -31,10 +31,11 @@

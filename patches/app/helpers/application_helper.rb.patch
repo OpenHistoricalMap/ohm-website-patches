@@ -1,5 +1,5 @@
 diff --git a/app/helpers/application_helper.rb b/app/helpers/application_helper.rb
-index dd6072cd5..7bbe97593 100644
+index a591d1451..bc55850a3 100644
 --- a/app/helpers/application_helper.rb
 +++ b/app/helpers/application_helper.rb
 @@ -45,7 +45,6 @@ module ApplicationHelper

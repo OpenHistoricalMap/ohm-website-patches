@@ -1,13 +1,12 @@
 diff --git a/config/settings.yml b/config/settings.yml
-index 87a3b5e55..887de1fcd 100644
+index f58a18e5f..96cf15e36 100644
 --- a/config/settings.yml
 +++ b/config/settings.yml
 @@ -1,6 +1,8 @@
  # The server protocol and host
--server_protocol: "http"
+ server_protocol: "http"
 -server_url: "openstreetmap.example.com"
-+server_protocol: "https"
-+server_url: "www.openhistoricalmap.org"
++server_url: "localhost:3000"
 +embed_server_url: "https://embed.openhistoricalmap.org/"
 +
  # Publisher
@@ -25,16 +24,23 @@ index 87a3b5e55..887de1fcd 100644
  # Sender addresses for emails
  email_from: "OpenStreetMap <openstreetmap@example.com>"
  email_return_path: "openstreetmap@example.com"
-@@ -120,7 +124,7 @@ attachments_dir: ":rails_root/public/attachments"
+@@ -120,19 +124,19 @@ attachments_dir: ":rails_root/public/attachments"
+ # MapTiler API key
+ #maptiler_key: ""
  # List of memcache servers to use for caching
- #memcache_servers: []
+-#memcache_servers: []
++#memcache_servers: "memcached:11211"
  # URL of Nominatim instance to use for geocoding
 -nominatim_url: "https://nominatim.openstreetmap.org/"
-+nominatim_url: "https://nominatim.openhistoricalmap.org/"
++nominatim_url: "nominatim-api.openhistoricalmap.org"
  # Default editor
  default_editor: "id"
  # OAuth application for the web site
-@@ -130,7 +134,7 @@ default_editor: "id"
+-#oauth_application: ""
++oauth_application: "Zj5OnOQLXJKgGYFMwsisuhsHR-FAg1khf-wr0nE3OWo"
+ # OAuth application for iD
+-#id_application: ""
++id_application: "tCygIMWpJVZ2c-vWYC_kI_YnMow3WmGbKLp2Rq_WgHI"
  # Imagery to return in capabilities as blacklisted
  imagery_blacklist: []
  # URL of Overpass instance to use for feature queries
@@ -43,7 +49,7 @@ index 87a3b5e55..887de1fcd 100644
  overpass_credentials: false
  # Routing endpoints
  graphhopper_url: "https://graphhopper.com/api/1/route"
-@@ -140,7 +144,7 @@ fossgis_valhalla_url: "https://valhalla1.openstreetmap.de/route"
+@@ -142,7 +146,7 @@ fossgis_valhalla_url: "https://valhalla1.openstreetmap.de/route"
  wikidata_api_url: "https://www.wikidata.org/w/api.php"
  wikimedia_commons_url: "https://commons.wikimedia.org/wiki/"
  # URL to donation form
@@ -52,7 +58,7 @@ index 87a3b5e55..887de1fcd 100644
  # Linkification rules
  linkify:
    detection_rules:
-@@ -211,6 +215,15 @@ linkify:
+@@ -213,6 +217,15 @@ linkify:
  #apple_team_id: ""
  #apple_key_id: ""
  #apple_private_key: ""

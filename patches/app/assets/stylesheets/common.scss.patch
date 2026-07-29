@@ -1,8 +1,8 @@
 diff --git a/app/assets/stylesheets/common.scss b/app/assets/stylesheets/common.scss
-index 33230c62c..22c389bf7 100644
+index 59fd33b22..db33d87cd 100644
 --- a/app/assets/stylesheets/common.scss
 +++ b/app/assets/stylesheets/common.scss
-@@ -851,7 +851,16 @@ div.secondary-actions {
+@@ -815,7 +815,16 @@ div.secondary-actions {
      }
  
      .byosm {

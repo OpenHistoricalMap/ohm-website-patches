@@ -1,5 +1,5 @@
 diff --git a/app/assets/javascripts/edit/id.js.erb b/app/assets/javascripts/edit/id.js.erb
-index 07cc136ce..7750c6db9 100644
+index 625c27dc8..909fd9be9 100644
 --- a/app/assets/javascripts/edit/id.js.erb
 +++ b/app/assets/javascripts/edit/id.js.erb
 @@ -1,6 +1,6 @@

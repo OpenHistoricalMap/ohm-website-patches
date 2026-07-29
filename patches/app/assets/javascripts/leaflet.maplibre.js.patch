@@ -1,5 +1,5 @@
 diff --git a/app/assets/javascripts/leaflet.maplibre.js b/app/assets/javascripts/leaflet.maplibre.js
-index 38b7f7d50..d445c50e0 100644
+index 253ab4dd7..3ccc1d0da 100644
 --- a/app/assets/javascripts/leaflet.maplibre.js
 +++ b/app/assets/javascripts/leaflet.maplibre.js
 @@ -7,3 +7,28 @@ L.OSM.MaplibreGL = L.MaplibreGL.extend({

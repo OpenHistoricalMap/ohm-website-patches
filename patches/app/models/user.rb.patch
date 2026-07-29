@@ -1,0 +1,13 @@
+diff --git a/app/models/user.rb b/app/models/user.rb
+index 15f7f9fa6..d9effdec0 100644
+--- a/app/models/user.rb
++++ b/app/models/user.rb
+@@ -20,7 +20,7 @@
+ #  languages            :string
+ #  status               :enum             default("pending"), not null
+ #  terms_agreed         :datetime
+-#  consider_pd          :boolean          default(FALSE), not null
++#  consider_pd          :boolean          default(TRUE), not null
+ #  auth_uid             :string
+ #  preferred_editor     :string
+ #  terms_seen           :boolean          default(FALSE), not null

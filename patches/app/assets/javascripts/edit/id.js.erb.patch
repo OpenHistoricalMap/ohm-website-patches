@@ -1,0 +1,12 @@
+diff --git a/app/assets/javascripts/edit/id.js.erb b/app/assets/javascripts/edit/id.js.erb
+index 625c27dc8..909fd9be9 100644
+--- a/app/assets/javascripts/edit/id.js.erb
++++ b/app/assets/javascripts/edit/id.js.erb
+@@ -1,6 +1,6 @@
+ $(function () {
+   const id = $("#id-embed"),
+-        idData = id.data();
++    idData = id.data();
+ 
+   if (!idData.configured) {
+     OSM.showAlert(OSM.i18n.t("javascripts.edit.id_not_configured.title"),

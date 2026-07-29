@@ -1,0 +1,13 @@
+diff --git a/app/assets/javascripts/router.js b/app/assets/javascripts/router.js
+index 77c726789..235f869ce 100644
+--- a/app/assets/javascripts/router.js
++++ b/app/assets/javascripts/router.js
+@@ -202,7 +202,7 @@ OSM.Router = function (map, rts) {
+     document.body.removeChild(link);
+   };
+ 
+-  for (const e of ["moveend", "baselayerchange", "overlayadd", "overlayremove"]) {
++  for (const e of ["moveend", "layeradd", "baselayerchange", "overlayadd", "overlayremove"]) {
+     map.on(e, router.updateHash);
+   }
+   $(window).on("hashchange", router.hashUpdated);

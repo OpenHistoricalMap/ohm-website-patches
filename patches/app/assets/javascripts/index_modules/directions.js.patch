@@ -1,0 +1,13 @@
+diff --git a/app/assets/javascripts/index_modules/directions.js b/app/assets/javascripts/index_modules/directions.js
+index b8b4f37b0..3c663321d 100644
+--- a/app/assets/javascripts/index_modules/directions.js
++++ b/app/assets/javascripts/index_modules/directions.js
+@@ -262,6 +262,8 @@ export default function (map) {
+     sidebarLoaded().then(enableListeners);
+ 
+     map.setSidebarOverlaid(!endpoints[0].latlng || !endpoints[1].latlng);
++
++    addOpenHistoricalMapTimeSlider(map);
+   };
+ 
+   page.unload = function () {

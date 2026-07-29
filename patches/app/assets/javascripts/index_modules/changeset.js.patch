@@ -1,0 +1,13 @@
+diff --git a/app/assets/javascripts/index_modules/changeset.js b/app/assets/javascripts/index_modules/changeset.js
+index 6f8538af1..d2bfd56a7 100644
+--- a/app/assets/javascripts/index_modules/changeset.js
++++ b/app/assets/javascripts/index_modules/changeset.js
+@@ -29,6 +29,8 @@ export default function (map) {
+       }
+     });
+     $(".numbered_pagination").trigger("numbered_pagination:enable");
++
++    addOpenHistoricalMapTimeSlider(map);
+   };
+ 
+   function updateChangeset(method, url, include_data) {

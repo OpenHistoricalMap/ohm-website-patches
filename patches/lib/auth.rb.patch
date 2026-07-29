@@ -1,0 +1,13 @@
+diff --git a/lib/auth.rb b/lib/auth.rb
+index 64b37317c..6d48e1da3 100644
+--- a/lib/auth.rb
++++ b/lib/auth.rb
+@@ -8,6 +8,8 @@ module Auth
+   @providers << "microsoft" if Settings.key?(:microsoft_auth_id)
+   @providers << "github" if Settings.key?(:github_auth_id)
+   @providers << "wikipedia" if Settings.key?(:wikipedia_auth_id)
++  @providers << "openstreetmap" if Settings.key?(:openstreetmap_auth_id)
++
+   @providers.freeze
+ 
+   def self.providers

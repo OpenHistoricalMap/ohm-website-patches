@@ -1,0 +1,22 @@
+diff --git a/test/controllers/messages/replies_controller_test.rb b/test/controllers/messages/replies_controller_test.rb
+index f8ab91b39..ef2bf8ea8 100644
+--- a/test/controllers/messages/replies_controller_test.rb
++++ b/test/controllers/messages/replies_controller_test.rb
+@@ -38,7 +38,7 @@ module Messages
+       get new_message_reply_path(message)
+       assert_response :success
+       assert_template "new"
+-      assert_select "title", "Re: #{message.title} | OpenStreetMap"
++      assert_select "title", "Re: #{message.title} | OpenHistoricalMap"
+       assert_select "form[action='/messages']", :count => 1 do
+         assert_select "input[type='hidden'][name='display_name'][value='#{user.display_name}']"
+         assert_select "input#message_title[value='Re: #{message.title}']", :count => 1
+@@ -54,7 +54,7 @@ module Messages
+       get new_message_reply_path(message)
+       assert_response :success
+       assert_template "new"
+-      assert_select "title", "Re: #{message.title} | OpenStreetMap"
++      assert_select "title", "Re: #{message.title} | OpenHistoricalMap"
+       assert_select "form[action='/messages']", :count => 1 do
+         assert_select "input[type='hidden'][name='display_name'][value='#{recipient_user.display_name}']"
+         assert_select "input#message_title[value='Re: #{message.title}']", :count => 1

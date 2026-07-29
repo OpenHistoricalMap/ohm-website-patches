@@ -1,0 +1,30 @@
+diff --git a/app/assets/javascripts/index_modules/note.js b/app/assets/javascripts/index_modules/note.js
+index 006d7be31..d9440d835 100644
+--- a/app/assets/javascripts/index_modules/note.js
++++ b/app/assets/javascripts/index_modules/note.js
+@@ -1,6 +1,6 @@
+ export default function (map) {
+   const content = $("#sidebar_content"),
+-        page = {};
++    page = {};
+ 
+   page.load = function (path, id) {
+     OSM.loadSidebarContent(path).then(function () {
+@@ -13,14 +13,15 @@ export default function (map) {
+ 
+   page.init = function (path, id) {
+     initialize(path, id);
++    addOpenHistoricalMapTimeSlider(map);
+   };
+ 
+   function initialize(path, id, skipMoveToNote) {
+     content.find("button[name]").on("click", function (e) {
+       e.preventDefault();
+       const { url, method } = $(e.target).data(),
+-            name = $(e.target).attr("name"),
+-            data = new URLSearchParams();
++        name = $(e.target).attr("name"),
++        data = new URLSearchParams();
+       content.find("button[name]").prop("disabled", true);
+ 
+       if (name !== "subscribe" && name !== "unsubscribe") {

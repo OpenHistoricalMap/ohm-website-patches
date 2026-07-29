@@ -1,0 +1,44 @@
+diff --git a/app/views/site/export.html.erb b/app/views/site/export.html.erb
+index 916fa9df5..b22826b40 100644
+--- a/app/views/site/export.html.erb
++++ b/app/views/site/export.html.erb
+@@ -18,7 +18,11 @@
+   </div>
+ 
+   <h4><%= t ".licence" %></h4>
+-  <p><%= t ".licence_details_html", :odbl_link => link_to(t(".odbl"), t(".odbl_url")) %></p>
++  <p>
++    <%= t ".licence_details_ohm_html",
++          :cc0_link => link_to(t(".cc0"), t(".cc0_url")),
++          :copyright_page_link => link_to(t(".copyright_page"), copyright_path) %>
++  </p>
+ 
+   <div id="export_osm_too_large">
+     <p class="alert alert-warning">
+@@ -35,18 +39,19 @@
+   <p><%= t ".too_large.advice" %></p>
+ 
+   <dl class="px-3">
+-    <dt><a id="export_overpass" href="https://overpass-api.de/api/map?bbox="><%= t ".too_large.overpass.title" %></a></dt>
++    <dt><a id="export_overpass" href="https://overpass-api.openhistoricalmap.org/api/map?bbox="><%= t ".too_large.overpass.title" %></a></dt>
+     <dd><%= t ".too_large.overpass.description" %></dd>
+ 
+-    <dt><a href="https://planet.openstreetmap.org/"><%= t ".too_large.planet.title" %></a></dt>
++    <dt><a href="http://planet.openhistoricalmap.org/"><%= t ".too_large.planet.title" %></a></dt>
+     <dd><%= t ".too_large.planet.description" %></dd>
+ 
+-    <dt><a href="https://download.geofabrik.de/"><%= t ".too_large.geofabrik.title" %></a></dt>
+-    <dd><%= t ".too_large.geofabrik.description" %></dd>
+-
+-    <dt><a href="https://wiki.openstreetmap.org/wiki/Download"><%= t ".too_large.other.title" %></a></dt>
++    <dt>
++      <%= link_to(t(".too_large.other.title"),
++                  t(".too_large.other.url")) %>
++    </dt>
+     <dd><%= t ".too_large.other.description" %></dd>
+-  </dl>
++
++ </dl>
+ <% end %>
+ 
+ <div class="modal fade" tabindex="-1" id="export_confirmation" aria-hidden="true">

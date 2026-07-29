@@ -1,72 +1,41 @@
 # ohm-website-patches
 
-OHM-specific overlays for files that conflict with upstream `openstreetmap-website` on merges. Keeps OHM customizations in a single repo so upstream pulls do not produce merge conflicts.
+OHM customizations for [openstreetmap-website](https://github.com/openstreetmap/openstreetmap-website), kept separate from the fork history. Upstream code flows in untouched; every OHM change is an explicit patch, overlay, or removal ([issues#735](https://github.com/OpenHistoricalMap/issues/issues/735)).
 
 ## Layout
 
-The `overlays/` tree mirrors the `ohm-website` checkout. Every file under `overlays/` overwrites the same relative path in the target checkout when applied.
+- `patches/` — one `.patch` per upstream file OHM modifies, mirroring the repo tree.
+- `overlays/` — whole files OHM adds, plus modified binaries. `overlays/config/locales/overrides/en.yml` holds OHM strings; upstream `en.yml` is never patched.
+- `REMOVALS` — upstream files OHM deletes.
+- `UPSTREAM_BASE` — upstream commit the patches were last resolved against.
+- Excluded: `config/locales/*` (Translatewiki) and lockfiles (regenerate from the patched `Gemfile`/`package.json`).
 
-```
-overlays/
-├── app/
-│   ├── abilities/        # ability.rb
-│   ├── assets/           # javascripts, stylesheets, images
-│   ├── controllers/      # site_controller, search query controllers
-│   ├── helpers/          # ohm_helper, browse_helper, open_graph_helper
-│   ├── models/           # social_link.rb
-│   └── views/            # layouts, site/, export/
-├── config/
-│   ├── initializers/     # assets, content_security_policy, omniauth
-│   ├── banners.yml
-│   ├── layers.yml
-│   ├── routes.rb
-│   ├── settings.yml
-│   └── example.settings.local.yml
-└── lib/                  # auth.rb, date_range.rb, id.rb, map_layers.rb
-```
+## Scripts
 
-Notable JS overrides under `overlays/app/assets/javascripts/`:
+| Script | What it does |
+|---|---|
+| `merge.sh [ref]` | Builds `../ohm-website-merged` (worktree of `../openstreetmap-website`) with everything applied. Conflicts stay as `<<<<<<< OSM upstream / OHM patch` markers. |
+| `export-patch.sh <file>` \| `--all` | Saves edits in the merged tree back into `patches/`. `--all` exports everything modified and prunes obsolete patches. |
+| `apply.sh <checkout>` | One-shot apply onto any checkout. For CI/Docker builds; exits non-zero on failure. |
 
-- `leaflet.map.js` — base map, layer switching
-- `leaflet.layers.js` — layer config UI
-- `leaflet.maplibre.js` — MapLibre GL bridge
-- `leaflet.maptiler.js` — MapTiler vector layer
-- `leaflet.shortbread.js` — Shortbread schema layer
-- `leaflet.locate.js` — geolocation control
-- `application.js` — asset manifest
-
-## Usage
-
-Apply overlays onto an `ohm-website` checkout with the helper script:
+## Workflow
 
 ```bash
-./scripts/apply.sh /path/to/ohm-website
+./scripts/merge.sh                    # build merged tree; fix any <<<<<<< markers
+./scripts/export-patch.sh --all       # save your fixes into patches/
+
+cd ../ohm-website-merged              # run the site
+docker compose -f docker-compose.dev.yml up db -d
+docker compose -f docker-compose.dev.yml run --service-ports web bash
+bundle install && ./start.sh          # → http://localhost:3000
 ```
 
-Or set `OHM_WEBSITE_DIR` and call without args. The script copies every file under `overlays/` into the destination, preserving directory structure.
+Rules: edit files in `../ohm-website-merged`, never `.patch` files by hand. Only exported changes survive a re-merge.
 
-### Docker build
+## Upstream sync
 
-`ohm-deploy` Dockerfile clones this repo and applies overlays before `assets:precompile`:
-
-```dockerfile
-ENV OHM_PATCHES_SHA=<commit-hash>
-RUN git clone https://github.com/OpenHistoricalMap/ohm-website-patches.git /tmp/patches && \
-    cd /tmp/patches && git checkout $OHM_PATCHES_SHA && \
-    ./scripts/apply.sh /var/www
+```bash
+git -C ../openstreetmap-website pull
+./scripts/merge.sh                    # 0 conflicts → done; else fix, export, commit
+git -C ../ohm-website-merged rev-parse HEAD > UPSTREAM_BASE
 ```
-
-### Local dev
-
-Mount the overlays tree on top of the running container:
-
-```yaml
-volumes:
-  - /path/to/ohm-website-patches/overlays/app:/var/www/app:ro
-  - /path/to/ohm-website-patches/overlays/config:/var/www/config:ro
-  - /path/to/ohm-website-patches/overlays/lib:/var/www/lib:ro
-```
-
-## Source for these files
-
-Initial copy from `OpenHistoricalMap/ohm-website` `staging` @ `6dc7d515a60b70a27f90e0e8d333df645e37e9a8`.

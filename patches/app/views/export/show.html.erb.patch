@@ -1,0 +1,15 @@
+diff --git a/app/views/export/show.html.erb b/app/views/export/show.html.erb
+index 5f0a9b4ed..5d36f37fe 100644
+--- a/app/views/export/show.html.erb
++++ b/app/views/export/show.html.erb
+@@ -8,7 +8,9 @@
+   </head>
+   <body>
+     <div id="map">
+-      <%= render :partial => "layouts/markers", :locals => { :types => %w[dot] } %>
++      <% if params[:marker].present? %>
++        <%= render :partial => "layouts/markers", :locals => { :types => %w[dot] } %>
++      <% end %>
+     </div>
+   </body>
+ </html>

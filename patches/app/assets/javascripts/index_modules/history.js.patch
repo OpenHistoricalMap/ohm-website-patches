@@ -1,0 +1,35 @@
+diff --git a/app/assets/javascripts/index_modules/history.js b/app/assets/javascripts/index_modules/history.js
+index 1f1bb62ec..8df10c3ac 100644
+--- a/app/assets/javascripts/index_modules/history.js
++++ b/app/assets/javascripts/index_modules/history.js
+@@ -49,9 +49,9 @@ export default function (map) {
+ 
+     changesetIntersectionObserver = new IntersectionObserver((entries) => {
+       let closestTargetToTop,
+-          closestDistanceToTop = Infinity,
+-          closestTargetToBottom,
+-          closestDistanceToBottom = Infinity;
++        closestDistanceToTop = Infinity,
++        closestTargetToBottom,
++        closestDistanceToBottom = Infinity;
+ 
+       for (const entry of entries) {
+         const id = $(entry.target).data("changeset")?.id;
+@@ -176,7 +176,7 @@ export default function (map) {
+     if (isHistory) {
+       setBboxFetchData(data);
+       const feedLink = $("link[type=\"application/atom+xml\"]"),
+-            feedHref = feedLink.attr("href").split("?")[0];
++        feedHref = feedLink.attr("href").split("?")[0];
+       feedLink.attr("href", feedHref + "?" + data);
+     }
+ 
+@@ -297,6 +297,8 @@ export default function (map) {
+     map.on("moveend", moveEndListener);
+     map.on("zoomend", zoomEndListener);
+     loadFirstChangesets();
++
++    addOpenHistoricalMapTimeSlider(map);
+   };
+ 
+   page.unload = function () {

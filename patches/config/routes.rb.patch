@@ -1,0 +1,22 @@
+diff --git a/config/routes.rb b/config/routes.rb
+index 57a4cd89f..f39bd6d32 100644
+--- a/config/routes.rb
++++ b/config/routes.rb
+@@ -197,7 +197,6 @@ OpenStreetMap::Application.routes.draw do
+   get "/help" => "site#help"
+   get "/about/:about_locale" => "site#about"
+   get "/about" => "site#about"
+-  get "/communities" => "site#communities"
+   get "/history" => "changesets#index"
+   get "/history/feed" => "changesets#feed", :defaults => { :format => :atom }
+   scope "/history" do
+@@ -234,6 +233,9 @@ OpenStreetMap::Application.routes.draw do
+   get "/create-account.html", :to => redirect(:path => "/user/new")
+   get "/forgot-password.html", :to => redirect(:path => "/user/forgot-password")
+ 
++  # ohm
++  get "/privacy-policy" => "site#ohm_privacy_policy"
++
+   # omniauth
+   scope "/auth", :as => :auth do
+     get "/failure" => "users#auth_failure"

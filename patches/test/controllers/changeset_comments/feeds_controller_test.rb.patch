@@ -1,0 +1,22 @@
+diff --git a/test/controllers/changeset_comments/feeds_controller_test.rb b/test/controllers/changeset_comments/feeds_controller_test.rb
+index d83d4c873..c5fa8b065 100644
+--- a/test/controllers/changeset_comments/feeds_controller_test.rb
++++ b/test/controllers/changeset_comments/feeds_controller_test.rb
+@@ -77,7 +77,7 @@ module ChangesetComments
+       end
+       assert_response :error
+       assert_equal "application/rss+xml; charset=utf-8", @response.header["Content-Type"]
+-      assert_dom "rss>channel>title", :text => "OpenStreetMap changeset discussion"
++      assert_dom "rss>channel>title", :text => "OpenHistoricalMap changeset discussion"
+       assert_dom "rss>channel>description", :text => /the list of changeset comments you requested took too long to retrieve/
+     end
+ 
+@@ -87,7 +87,7 @@ module ChangesetComments
+       end
+       assert_response :error
+       assert_equal "application/rss+xml; charset=utf-8", @response.header["Content-Type"]
+-      assert_dom "rss>channel>title", :text => "OpenStreetMap changeset #123 discussion"
++      assert_dom "rss>channel>title", :text => "OpenHistoricalMap changeset #123 discussion"
+       assert_dom "rss>channel>description", :text => /the list of changeset comments you requested took too long to retrieve/
+     end
+   end

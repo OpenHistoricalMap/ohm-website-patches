@@ -1,0 +1,24 @@
+diff --git a/app/views/layouts/_head.html.erb b/app/views/layouts/_head.html.erb
+index 45bd25c13..a17c7da85 100644
+--- a/app/views/layouts/_head.html.erb
++++ b/app/views/layouts/_head.html.erb
+@@ -5,13 +5,18 @@
+   <%= javascript_include_tag "turbo", :type => "module" %>
+   <%= javascript_include_tag "application" %>
+   <%= javascript_include_tag "i18n/#{I18n.locale}" %>
+-  <% if current_user&.preferred_color_scheme(:site) %>
++
++  <script type="text/javascript" src="https://openhistoricalmap.github.io/ohm-inspector/api/api.js"></script>
++  <link rel="stylesheet" type="text/css" href="https://openhistoricalmap.github.io/ohm-inspector/api/api.css" />
++
++<% if current_user&.preferred_color_scheme(:site) %>
+     <%= stylesheet_link_tag "screen-manual-#{dir}", :media => "screen" %>
+   <% else %>
+     <%= stylesheet_link_tag "screen-auto-#{dir}", :media => "screen" %>
+   <% end %>
+   <%= stylesheet_link_tag "print-#{dir}", :media => "print" %>
+   <%= stylesheet_link_tag "leaflet-all", :media => "screen, print" %>
++  <%= stylesheet_link_tag "leaflet-ohm-timeslider", :media => "screen, print" %>
+   <%= stylesheet_link_tag "maplibre-gl-all", :media => "screen, print" %>
+   <%= yield :head %>
+   <%= yield :auto_discovery_link_tag %>

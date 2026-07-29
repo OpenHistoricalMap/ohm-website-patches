@@ -1,0 +1,13 @@
+diff --git a/test/helpers/asset_helper_test.rb b/test/helpers/asset_helper_test.rb
+index c935de207..1566a79a8 100644
+--- a/test/helpers/asset_helper_test.rb
++++ b/test/helpers/asset_helper_test.rb
+@@ -4,7 +4,7 @@ require "test_helper"
+ 
+ class AssetHelperTest < ActionView::TestCase
+   def test_assets
+-    asset_map = assets("@openstreetmap/id")
++    asset_map = assets("@openhistoricalmap/id")
+     assert_kind_of Hash, asset_map
+     assert_operator asset_map.length, :>, 0
+   end

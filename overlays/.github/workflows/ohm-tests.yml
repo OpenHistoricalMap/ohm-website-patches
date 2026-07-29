@@ -3,8 +3,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - 1180-hundreds-of-ohm-website-test-failures
-#  pull_request:
+      - main
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
   cancel-in-progress: true
@@ -69,7 +68,6 @@ jobs:
       run: bundle exec rails test:all
       env:
         DISPLAY: ":99"
-      continue-on-error: true
     - name: Run javascript tests
       run: bundle exec teaspoon
       env:

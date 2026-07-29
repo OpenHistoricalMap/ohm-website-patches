@@ -13,6 +13,9 @@ if [[ ! -d "$DEST" ]]; then
   echo "Error: destination not found: $DEST" >&2
   exit 1
 fi
+# Make DEST absolute — later steps change directory, so a relative path
+# would resolve against the wrong location.
+DEST="$(cd "$DEST" && pwd)"
 
 echo "Upstream base expected: $(cat "$HERE/UPSTREAM_BASE")"
 

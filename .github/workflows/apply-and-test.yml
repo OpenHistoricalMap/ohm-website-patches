@@ -1,0 +1,101 @@
+name: Apply and test
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - main
+      - develop
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+jobs:
+  test:
+    name: Ruby ${{ matrix.ruby }}
+    strategy:
+      matrix:
+        ruby: ['3.4']
+      fail-fast: false
+    runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
+      OPENSTREETMAP_MEMCACHE_SERVERS: 127.0.0.1
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: website
+    steps:
+    - name: Checkout ohm-website-patches
+      uses: actions/checkout@v4
+      with:
+        path: patches
+    - name: Read upstream base
+      id: base
+      run: echo "ref=$(cat UPSTREAM_BASE)" >> "$GITHUB_OUTPUT"
+      working-directory: patches
+    - name: Checkout openstreetmap-website at upstream base
+      uses: actions/checkout@v4
+      with:
+        repository: openstreetmap/openstreetmap-website
+        ref: ${{ steps.base.outputs.ref }}
+        path: website
+    - name: Apply OHM patches, overlays and removals
+      run: ./scripts/apply.sh ../website
+      working-directory: patches
+    - name: Setup ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby }}
+        rubygems: 3.4.10
+        bundler-cache: true
+        working-directory: website
+    - name: Cache node modules
+      uses: actions/setup-node@v4
+      with:
+        cache: yarn
+        cache-dependency-path: website/yarn.lock
+    - name: Install packages
+      run: |
+        sudo apt-get -yqq update
+        sudo apt-get -yqq install memcached libvips-dev xvfb mesa-utils libgl1-mesa-dri postgresql-postgis
+    - name: Create database
+      run: |
+        sudo systemctl start postgresql
+        sudo -u postgres createuser -s $(id -un)
+        createdb openstreetmap
+    - name: Configure rails
+      run: |
+        cp config/github.database.yml config/database.yml
+        cp config/example.storage.yml config/storage.yml
+        touch config/settings.local.yml
+    - name: Install node modules
+      run: bundle exec bin/yarn install
+    # Upstream also diffs db/structure.sql against the migrated schema, but OHM
+    # migrations change the schema without regenerating structure.sql, so that
+    # check is skipped here.
+    - name: Populate database
+      run: bundle exec rails db:migrate
+    - name: Export javascript strings
+      run: bundle exec i18n export
+    - name: Compile assets
+      run: bundle exec rails assets:precompile
+      timeout-minutes: 10
+    - name: Create tmp/pids directory
+      run: mkdir -p tmp/pids
+    - name: Enable virtual display
+      run: Xvfb :99 -screen 0 1024x768x24 &
+    - name: Run tests
+      run: bundle exec rails test:all
+      env:
+        DISPLAY: ":99"
+    - name: Run javascript tests
+      run: bundle exec teaspoon
+      env:
+        DISPLAY: ":99"
+    - name: Upload screenshots
+      uses: actions/upload-artifact@v4
+      if: failure()
+      with:
+        name: screenshots
+        path: website/tmp/screenshots
+        if-no-files-found: ignore

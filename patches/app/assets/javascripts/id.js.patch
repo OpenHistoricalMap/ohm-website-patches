@@ -2,14 +2,13 @@ diff --git a/app/assets/javascripts/id.js b/app/assets/javascripts/id.js
 index ed99131fa..96ac65530 100644
 --- a/app/assets/javascripts/id.js
 +++ b/app/assets/javascripts/id.js
-@@ -1,4 +1,5 @@
+@@ -1,4 +1,4 @@
 -//= require @openstreetmap/id/dist/iD.js
 +//= require @openhistoricalmap/id/dist/iD.js
-+//= require jquery.throttle-debounce
  
  /* globals iD */
  
-@@ -16,13 +17,13 @@ document.addEventListener("DOMContentLoaded", function () {
+@@ -16,13 +16,13 @@ document.addEventListener("DOMContentLoaded", function () {
      const url = location.protocol + "//" + location.host;
      idContext.preauth({
        url: url,

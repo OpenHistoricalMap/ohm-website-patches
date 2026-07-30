@@ -1,0 +1,15 @@
+diff --git a/test/application_system_test_case.rb b/test/application_system_test_case.rb
+index be7b35f0c..e35291fd6 100644
+--- a/test/application_system_test_case.rb
++++ b/test/application_system_test_case.rb
+@@ -13,6 +13,10 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
+ 
+   Capybara.configure do |config|
+     config.enable_aria_label = true
++    # OHM's default vector base layer renders through software WebGL in
++    # headless CI, so sidebar updates can take longer than Capybara's 2s
++    # default before the JS settles.
++    config.default_max_wait_time = 10
+   end
+ 
+   cattr_accessor(:capybara_server_port) { ENV.fetch("CAPYBARA_SERVER_PORT", nil) }

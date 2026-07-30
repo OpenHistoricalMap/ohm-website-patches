@@ -1,16 +1,7 @@
 diff --git a/test/controllers/diary_entries_controller_test.rb b/test/controllers/diary_entries_controller_test.rb
-index 4f59e580d..9bb1ad859 100644
+index 4f59e580d..0eef3bb91 100644
 --- a/test/controllers/diary_entries_controller_test.rb
 +++ b/test/controllers/diary_entries_controller_test.rb
-@@ -10,7 +10,7 @@ class DiaryEntriesControllerTest < ActionDispatch::IntegrationTest
-     # Create the default language for diary entries
-     create(:language, :code => "en")
-     # Stub nominatim response for diary entry locations
--    stub_request(:get, %r{^https://nominatim\.openstreetmap\.org/reverse\?})
-+    stub_request(:get, %r{^https://nominatim\.openhistoricalmap\.org/reverse\?})
-       .to_return(:status => 404)
-   end
- 
 @@ -664,7 +664,7 @@ class DiaryEntriesControllerTest < ActionDispatch::IntegrationTest
        assert_dom "> @content", ActionController::Base.helpers.image_url("osm_logo_256.png", :host => root_url)
      end

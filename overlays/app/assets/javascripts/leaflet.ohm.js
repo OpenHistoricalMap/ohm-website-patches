@@ -10,6 +10,17 @@ L.OSM.OHM = L.OSM.MaplibreGL.extend({
   onAdd: function (map) {
     L.OSM.MaplibreGL.prototype.onAdd.call(this, map);
 
+    // In tests (Selenium) use an empty style: no GPU in CI, so the real
+    // vector style is slow, flaky, and fetches live tiles.
+    if (navigator.webdriver) {
+      this.getMaplibreMap().setStyle({
+        version: 8,
+        sources: { ohm: { type: "vector", tiles: [] } },
+        layers: []
+      });
+      return;
+    }
+
     // Add multilingual awareness
     const language = new MapboxLanguage({
       defaultLanguage: 'mul'

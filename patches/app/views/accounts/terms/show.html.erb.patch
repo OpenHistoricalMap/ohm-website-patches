@@ -1,8 +1,8 @@
 diff --git a/app/views/accounts/terms/show.html.erb b/app/views/accounts/terms/show.html.erb
-index e4e96947d..a40872b74 100644
+index e4e96947d..8dc7c4716 100644
 --- a/app/views/accounts/terms/show.html.erb
 +++ b/app/views/accounts/terms/show.html.erb
-@@ -115,4 +115,13 @@
+@@ -115,4 +115,14 @@
      <%= submit_tag(t(".continue"), :name => "continue", :id => "continue", :disabled => true, :class => "btn btn-primary") %>
      <%= submit_tag(t(".cancel"), :name => "decline", :id => "decline", :class => "btn btn-outline-secondary") %>
    </div>
@@ -15,4 +15,5 @@ index e4e96947d..a40872b74 100644
 +      </label>
 +      <span class="minorNote">(<%= link_to(t("accounts.pd_declarations.show.consider_pd_why"), t("accounts.pd_declarations.show.consider_pd_why_url"), :target => :new) %>)</span>
 +    </div>
++  </div>
  <% end %>

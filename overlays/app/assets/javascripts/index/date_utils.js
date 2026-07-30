@@ -37,16 +37,16 @@ OSM.Date = {
 
   // Fill a partial date to a full YYYY-MM-DD, at the start or end of its period.
   padDate: function (value, startend) {
-    if (value === null || value === undefined || value === "") return null;
+    if (typeof value === "undefined" || value === null || value === "") return null;
     const date = String(value).trim().replace(/^\+/, "");
-    if (/^-?\d+-\d\d-\d\d$/.test(date)) return date;
+    if ((/^-?\d+-\d\d-\d\d$/).test(date)) return date;
     const yearMonth = date.match(/^(-?\d+)-(\d\d)$/);
     if (yearMonth) {
       if (startend === "start") return `${date}-01`;
       const lastDay = OSM.Date.daysInMonth(parseInt(yearMonth[1], 10), parseInt(yearMonth[2], 10));
       return `${date}-${String(lastDay).padStart(2, "0")}`;
     }
-    if (/^-?\d+$/.test(date)) return startend === "start" ? `${date}-01-01` : `${date}-12-31`;
+    if ((/^-?\d+$/).test(date)) return startend === "start" ? `${date}-01-01` : `${date}-12-31`;
     return null;
   },
 

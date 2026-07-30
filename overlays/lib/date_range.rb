@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DateRange
   attr_reader :start_date, :end_date
 
@@ -13,9 +15,9 @@ class DateRange
     printable_end_date = printable_date(parsed_end_date, (parsed_start_date && parsed_start_date.year < 1) || (parsed_end_date && parsed_end_date.year < 1))
 
     if printable_start_date == printable_end_date
-      dates = printable_start_date
+      printable_start_date
     else
-      dates = I18n.t "date.formats.range", :start => printable_start_date, :end => printable_end_date
+      I18n.t "date.formats.range", :start => printable_start_date, :end => printable_end_date
     end
   end
 
@@ -23,12 +25,10 @@ class DateRange
     if parsed_date
       format = "date.formats.brief"
       if era
-        format = parsed_date.year > 0 ? "date.formats.brief_ce" : "date.formats.brief_bce"
+        format = parsed_date.year.positive? ? "date.formats.brief_ce" : "date.formats.brief_bce"
       end
-      if parsed_date.year < 1
-        parsed_date = Date.new(1 - parsed_date.year)
-      end
-      I18n.t format, :year => "%d" % parsed_date.year
+      parsed_date = Date.new(1 - parsed_date.year) if parsed_date.year < 1
+      I18n.t format, :year => parsed_date.year
     else
       ""
     end

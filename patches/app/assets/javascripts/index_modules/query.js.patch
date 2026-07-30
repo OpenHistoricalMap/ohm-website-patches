@@ -1,8 +1,8 @@
 diff --git a/app/assets/javascripts/index_modules/query.js b/app/assets/javascripts/index_modules/query.js
-index c17cd430c..f47deb4b4 100644
+index c17cd430c..56b9bedb5 100644
 --- a/app/assets/javascripts/index_modules/query.js
 +++ b/app/assets/javascripts/index_modules/query.js
-@@ -40,6 +40,52 @@ export default function (map) {
+@@ -40,6 +40,48 @@ export default function (map) {
      return false;
    }
  
@@ -16,21 +16,17 @@ index c17cd430c..f47deb4b4 100644
 +    }
 +
 +    // Keep the date range suffix succinct by only including the year and era.
-+    let options = {
++    const options = {
 +      timeZone: "UTC",
 +      year: "numeric"
 +    };
-+    if (endDate) {
-+      options.era = endDate.getUTCFullYear() < 1 ? "short" : undefined;
-+    }
-+    if (startDate) {
-+      // Override any settings from the end of the range.
-+      options.era = startDate.getUTCFullYear() < 1 ? "short" : undefined;
-+    }
++    // The start of the range overrides any settings from its end.
++    const eraDate = startDate || endDate;
++    if (eraDate && eraDate.getUTCFullYear() < 1) options.era = "short";
 +
 +    // Get the date range format in structured form, then filter out anything untagged.
-+    let format = new Intl.DateTimeFormat(OSM.i18n.locale, options);
-+    let lateDate = new Date(Date.UTC(9999));
++    const format = new Intl.DateTimeFormat(OSM.i18n.locale, options);
++    const lateDate = new Date(Date.UTC(9999));
 +    let parts = format.formatRangeToParts(startDate || lateDate, endDate || lateDate);
 +    if (!startDate) {
 +      parts = parts.filter(p => p.source !== "startRange");
@@ -55,7 +51,7 @@ index c17cd430c..f47deb4b4 100644
    function featureGeometry(feature) {
      switch (feature.type) {
        case "node":
-@@ -54,7 +100,7 @@ export default function (map) {
+@@ -54,7 +96,7 @@ export default function (map) {
      }
    }
  
@@ -64,7 +60,7 @@ index c17cd430c..f47deb4b4 100644
      const $ul = $section.find("ul");
  
      $ul.empty();
-@@ -65,6 +111,7 @@ export default function (map) {
+@@ -65,6 +107,7 @@ export default function (map) {
      }
  
      $section.data("ajax", new AbortController());
@@ -72,7 +68,7 @@ index c17cd430c..f47deb4b4 100644
      fetch(OSM.OVERPASS_URL, {
        method: "POST",
        body: new URLSearchParams({
-@@ -80,7 +127,7 @@ export default function (map) {
+@@ -80,7 +123,7 @@ export default function (map) {
          throw new Error(`HTTP Error ${response.status} ${response.statusText}`);
        })
        .then(function (results) {
@@ -81,7 +77,7 @@ index c17cd430c..f47deb4b4 100644
  
          $section.find(".loader").hide();
  
-@@ -100,6 +147,11 @@ export default function (map) {
+@@ -100,6 +143,11 @@ export default function (map) {
            }, {}));
          }
  
@@ -93,7 +89,7 @@ index c17cd430c..f47deb4b4 100644
          if (compare) {
            elements = elements.sort(compare);
          }
-@@ -118,6 +170,13 @@ export default function (map) {
+@@ -118,6 +166,13 @@ export default function (map) {
              .data("geometry", featureGeometry(element))
              .text(OSM.featureName(element))
              .appendTo($li);
@@ -107,7 +103,7 @@ index c17cd430c..f47deb4b4 100644
          }
  
          if (results.remark) renderError($ul, results.remark);
-@@ -149,6 +208,21 @@ export default function (map) {
+@@ -149,6 +204,21 @@ export default function (map) {
      return (maxlon - minlon) * (maxlat - minlat);
    }
  
@@ -129,7 +125,7 @@ index c17cd430c..f47deb4b4 100644
    /*
     * To find nearby objects we ask overpass for the union of the
     * following sets:
-@@ -168,6 +242,20 @@ export default function (map) {
+@@ -168,6 +238,20 @@ export default function (map) {
     *
     * In both cases we then ask to retrieve tags and the geometry
     * for each object.
@@ -150,18 +146,17 @@ index c17cd430c..f47deb4b4 100644
     */
    function queryOverpass(latlng) {
      const bounds = map.getBounds(),
-@@ -177,10 +265,29 @@ export default function (map) {
+@@ -177,9 +261,28 @@ export default function (map) {
            bbox = `${sw.lat},${sw.lng},${ne.lat},${ne.lng}`,
            geom = `geom(${bbox})`,
            radius = 10 * Math.pow(1.5, 19 - zoom),
 -          here = `(around:${radius},${latlng})`,
 -          enclosed = "(pivot.a);out tags bb",
 -          nearby = `(node${here};way${here};);out tags ${geom};relation${here};out ${geom};`,
--          isin = `is_in(${latlng})->.a;way${enclosed};out ids ${geom};relation${enclosed};`;
 +          here = `(around:${radius},${latlng})`;
 +
-+    let dateFilter = "";  // OverpassQL filter (dates >= 1000 CE)
-+    let jsDateFilter = null;  // JavaScript filter (dates < 1000 CE)
++    let dateFilter = ""; // OverpassQL filter (dates >= 1000 CE)
++    let jsDateFilter = null; // JavaScript filter (dates < 1000 CE)
 +
 +    if (map.timeslider) {
 +      const currentDate = map.timeslider.getDate();
@@ -177,14 +172,13 @@ index c17cd430c..f47deb4b4 100644
 +
 +    // Build queries - match original format when no dateFilter
 +    const enclosed = `(pivot.a)${dateFilter};out tags bb`,
-+      nearby = dateFilter
-+        ? `(node${here}${dateFilter};way${here}${dateFilter};);out tags ${geom};relation${here}${dateFilter};out ${geom};`
-+        : `(node${here};way${here};);out tags ${geom};relation${here};out ${geom};`,
-+      isin = `is_in(${latlng})->.a;way${enclosed};out ids ${geom};relation${enclosed};`;
++          nearby = dateFilter ?
++            `(node${here}${dateFilter};way${here}${dateFilter};);out tags ${geom};relation${here}${dateFilter};out ${geom};` :
++            `(node${here};way${here};);out tags ${geom};relation${here};out ${geom};`,
+           isin = `is_in(${latlng})->.a;way${enclosed};out ids ${geom};relation${enclosed};`;
  
      $("#sidebar_content .query-intro")
-       .hide();
-@@ -192,8 +299,8 @@ export default function (map) {
+@@ -192,8 +295,8 @@ export default function (map) {
        ...featureStyle
      }).addTo(map);
  
@@ -195,7 +189,7 @@ index c17cd430c..f47deb4b4 100644
    }
  
    const page = {};
-@@ -214,6 +321,8 @@ export default function (map) {
+@@ -214,6 +317,8 @@ export default function (map) {
      }
  
      queryOverpass([params.get("lat"), params.get("lon")]);

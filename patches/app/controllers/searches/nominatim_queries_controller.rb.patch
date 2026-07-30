@@ -1,5 +1,5 @@
 diff --git a/app/controllers/searches/nominatim_queries_controller.rb b/app/controllers/searches/nominatim_queries_controller.rb
-index 725b55f0e..26d9ae659 100644
+index 725b55f0e..53360456f 100644
 --- a/app/controllers/searches/nominatim_queries_controller.rb
 +++ b/app/controllers/searches/nominatim_queries_controller.rb
 @@ -2,6 +2,8 @@
@@ -37,21 +37,19 @@ index 725b55f0e..26d9ae659 100644
            border_type = nil
            place_type = nil
            admin_type = nil
-@@ -48,10 +58,23 @@ module Searches
+@@ -48,10 +58,21 @@ module Searches
          object_type = place.attributes["osm_type"]
          object_id = place.attributes["osm_id"]
  
 +        start_date, end_date = nil
-+        place.elements["extratags"].elements.each("tag") do |extratag|
++        place.elements["extratags"]&.elements&.each("tag") do |extratag|
 +          if extratag.attributes["key"] == "start_date"
-+            start_date = extratag.attributes['value']
++            start_date = extratag.attributes["value"]
 +          elsif extratag.attributes["key"] == "end_date"
-+            end_date = extratag.attributes['value']
++            end_date = extratag.attributes["value"]
 +          end
-+        end unless place.elements["extratags"].nil?
-+        if start_date || end_date
-+          suffix = t "geocoder.search_osm_nominatim.suffix_format", :dates => DateRange.new(start_date, end_date).to_s
 +        end
++        suffix = t "geocoder.search_osm_nominatim.suffix_format", :dates => DateRange.new(start_date, end_date).to_s if start_date || end_date
 +
          @results.push(:lat => lat, :lon => lon,
                        :min_lat => min_lat, :max_lat => max_lat,

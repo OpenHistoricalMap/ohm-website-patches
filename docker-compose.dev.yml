@@ -9,6 +9,9 @@ services:
       - /app/node_modules/
       - web-tmp:/app/tmp
       - web-storage:/app/storage
+      # selenium-manager downloads geckodriver on every fresh container;
+      # persist its cache so an offline github does not abort the test suite
+      - web-selenium-cache:/root/.cache/selenium
     networks:
       - web_network
     tmpfs:
@@ -45,6 +48,7 @@ services:
 volumes:
   web-tmp:
   web-storage:
+  web-selenium-cache:
   db-data:
     driver: local
     name: ohm_web_pg17

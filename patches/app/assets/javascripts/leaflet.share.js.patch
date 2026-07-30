@@ -1,5 +1,5 @@
 diff --git a/app/assets/javascripts/leaflet.share.js b/app/assets/javascripts/leaflet.share.js
-index 5896eed9e..92f5c5798 100644
+index 5896eed9e..2561f7348 100644
 --- a/app/assets/javascripts/leaflet.share.js
 +++ b/app/assets/javascripts/leaflet.share.js
 @@ -43,7 +43,7 @@ L.OSM.share = function (options) {
@@ -11,58 +11,40 @@ index 5896eed9e..92f5c5798 100644
  
      $ui
        .on("show", shown)
-@@ -153,12 +153,18 @@ L.OSM.share = function (options) {
-         .parent()
-         .tooltip(canEmbed ? "disable" : "enable");
+@@ -155,10 +155,10 @@ L.OSM.share = function (options) {
  
-+      const
-+        parsedHash = new URLSearchParams(location.hash),
-+        embeddedMapPath = parsedHash.get('#map'),
-+        embeddedMapDate = parsedHash.get('date')
-+      ;
-+
        $("#embed_html").val(
          "<iframe width=\"425\" height=\"350\" src=\"" +
 -          escapeHTML(OSM.SERVER_PROTOCOL + "://" + OSM.SERVER_URL + "/export/embed.html?" + params) +
 -          "\" style=\"border: 1px solid black\"></iframe><br/>" +
 -          "<small><a href=\"" + escapeHTML(map.getUrl(marker)) + "\">" +
 -          escapeHTML(OSM.i18n.t("javascripts.share.view_larger_map")) + "</a></small>");
-+        OSM.EMBED_SERVER_URL + location.hash + '&bbox=' + params.bbox +
++        OSM.EMBED_SERVER_URL + location.hash + "&bbox=" + params.bbox +
 +        "\" style=\"border: 1px solid black\"></iframe><br/>" +
 +        "<small><a href=\"" + escapeHTML(map.getUrl(marker)) + "\">" +
 +        escapeHTML(OSM.i18n.t("javascripts.share.view_larger_map")) + "</a></small>");
  
        // Geo URI
  
-@@ -174,8 +180,8 @@ L.OSM.share = function (options) {
+@@ -192,10 +192,14 @@ L.OSM.share = function (options) {
+       $("#mapnik_image_width").text(mapWidth);
+       $("#mapnik_image_height").text(mapHeight);
  
-       let scale = $("#mapnik_scale").val();
-       const size = L.bounds(L.CRS.EPSG3857.project(bounds.getSouthWest()),
--                            L.CRS.EPSG3857.project(bounds.getNorthEast())).getSize(),
--            maxScale = Math.floor(Math.sqrt(size.x * size.y / 0.3136));
-+          L.CRS.EPSG3857.project(bounds.getNorthEast())).getSize(),
-+        maxScale = Math.floor(Math.sqrt(size.x * size.y / 0.3136));
- 
-       $("#mapnik_minlon").val(bounds.getWest());
-       $("#mapnik_minlat").val(bounds.getSouth());
-@@ -194,8 +200,14 @@ L.OSM.share = function (options) {
- 
-       const canDownloadImage = Boolean(layer && layer.options.canDownloadImage);
- 
--      $("#mapnik_image_layer").text(canDownloadImage ? layer.options.name : "");
--      $("#map_format").val(canDownloadImage ? layer.options.layerId : "");
+-      const canDownloadImage = Boolean(layer && layer.options.canDownloadImage);
 +      const layerKeys = new Map([
 +        ["mapnik", "standard"],
 +        ["cyclemap", "cycle_map"],
 +        ["transportmap", "transport_map"]
 +      ]);
-+
-+      $("#mapnik_image_layer").text(layerKeys.has(layer) ?OSM.i18n.t(`javascripts.map.base.${layerKeys.get(layer)}`) : "");
+ 
+-      $("#mapnik_image_layer").text(canDownloadImage ? layer.options.name : "");
+-      $("#map_format").val(canDownloadImage ? layer.options.layerId : "");
++      $("#mapnik_image_layer").text(layerKeys.has(layer) ? OSM.i18n.t(`javascripts.map.base.${layerKeys.get(layer)}`) : "");
 +      $("#map_format").val(layer);
  
        $("#map_zoom").val(map.getZoom());
        $("#mapnik_lon").val(map.getCenter().lng);
-@@ -203,9 +215,18 @@ L.OSM.share = function (options) {
+@@ -203,9 +207,18 @@ L.OSM.share = function (options) {
        $("#map_width").val(mapWidth);
        $("#map_height").val(mapHeight);
  
@@ -84,20 +66,3 @@ index 5896eed9e..92f5c5798 100644
      }
  
      function select() {
-@@ -214,11 +235,11 @@ L.OSM.share = function (options) {
- 
-     function getScale() {
-       const bounds = map.getBounds(),
--            centerLat = bounds.getCenter().lat,
--            halfWorldMeters = 6378137 * Math.PI * Math.cos(centerLat * Math.PI / 180),
--            meters = halfWorldMeters * (bounds.getEast() - bounds.getWest()) / 180,
--            pixelsPerMeter = map.getSize().x / meters,
--            metersPerPixel = 1 / (92 * 39.3701);
-+        centerLat = bounds.getCenter().lat,
-+        halfWorldMeters = 6378137 * Math.PI * Math.cos(centerLat * Math.PI / 180),
-+        meters = halfWorldMeters * (bounds.getEast() - bounds.getWest()) / 180,
-+        pixelsPerMeter = map.getSize().x / meters,
-+        metersPerPixel = 1 / (92 * 39.3701);
-       return Math.round(1 / (pixelsPerMeter * metersPerPixel));
-     }
- 

@@ -1,5 +1,5 @@
 diff --git a/app/mailers/user_mailer.rb b/app/mailers/user_mailer.rb
-index 755aa02a9..0a68ac9c1 100644
+index 755aa02a9..f73dbb7f3 100644
 --- a/app/mailers/user_mailer.rb
 +++ b/app/mailers/user_mailer.rb
 @@ -242,7 +242,7 @@ class UserMailer < ApplicationMailer
@@ -7,7 +7,7 @@ index 755aa02a9..0a68ac9c1 100644
  
    def attach_project_logo
 -    attachments.inline["logo.png"] = Rails.root.join("app/assets/images/osm_logo_30.png").read
-+    attachments.inline["logo.png"] = File.read(Rails.root.join("app/assets/images/ohm_logo_30.png"))
++    attachments.inline["logo.png"] = Rails.root.join("app/assets/images/ohm_logo_30.png").read
    end
  
    def attach_user_avatar(user)

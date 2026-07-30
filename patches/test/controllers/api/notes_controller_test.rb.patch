@@ -1,16 +1,7 @@
 diff --git a/test/controllers/api/notes_controller_test.rb b/test/controllers/api/notes_controller_test.rb
-index 70f2100d5..2d7cbda51 100644
+index 70f2100d5..a6ec74012 100644
 --- a/test/controllers/api/notes_controller_test.rb
 +++ b/test/controllers/api/notes_controller_test.rb
-@@ -7,7 +7,7 @@ module Api
-     def setup
-       super
-       # Stub nominatim response for note locations
--      stub_request(:get, %r{^https://nominatim\.openstreetmap\.org/reverse\?})
-+      stub_request(:get, %r{^https://nominatim\.openhistoricalmap\.org/reverse\?})
-         .to_return(:status => 404)
-     end
- 
 @@ -400,8 +400,8 @@ module Api
        assert_equal third_user, subscription.user
        assert_equal note_with_comments_by_users, subscription.note

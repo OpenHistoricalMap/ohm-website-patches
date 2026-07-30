@@ -1,0 +1,61 @@
+name: Publish merged tree
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+concurrency:
+  group: publish-merged
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+    - name: Checkout ohm-website-patches
+      uses: actions/checkout@v4
+      with:
+        path: patches
+    - name: Read upstream base
+      id: base
+      run: echo "ref=$(cat UPSTREAM_BASE)" >> "$GITHUB_OUTPUT"
+      working-directory: patches
+    - name: Checkout openstreetmap-website at upstream base
+      uses: actions/checkout@v4
+      with:
+        repository: openstreetmap/openstreetmap-website
+        ref: ${{ steps.base.outputs.ref }}
+        path: website
+        persist-credentials: false
+    - name: Apply OHM patches, overlays and removals
+      run: ./scripts/apply.sh ../website
+      working-directory: patches
+    - name: Checkout ohm-website-merged
+      uses: actions/checkout@v4
+      with:
+        repository: OpenHistoricalMap/ohm-website-merged
+        token: ${{ secrets.MERGED_REPO_TOKEN }}
+        path: merged
+    - name: Open a pull request with the rendered tree
+      working-directory: merged
+      env:
+        GH_TOKEN: ${{ secrets.MERGED_REPO_TOKEN }}
+      run: |
+        rsync -a --delete --exclude ".git" ../website/ ./
+        git add -A
+        if git diff --cached --quiet; then
+          echo "Merged tree is already up to date, nothing to publish."
+          exit 0
+        fi
+        git config user.name "ohm-bot"
+        git config user.email "bot@openhistoricalmap.org"
+        BRANCH="patches-${GITHUB_SHA::7}"
+        git checkout -b "$BRANCH"
+        git commit -m "Apply ohm-website-patches@${GITHUB_SHA::7} onto upstream ${{ steps.base.outputs.ref }}"
+        git push --force origin "$BRANCH"
+        gh pr create \
+          --repo OpenHistoricalMap/ohm-website-merged \
+          --base main --head "$BRANCH" \
+          --title "Apply ohm-website-patches@${GITHUB_SHA::7}" \
+          --body "Rendered tree from OpenHistoricalMap/ohm-website-patches@${GITHUB_SHA} on upstream ${{ steps.base.outputs.ref }}." \
+          || echo "PR already exists for $BRANCH"

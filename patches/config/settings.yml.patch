@@ -1,12 +1,11 @@
 diff --git a/config/settings.yml b/config/settings.yml
-index f58a18e5f..96cf15e36 100644
+index f58a18e5f..eeb27fc12 100644
 --- a/config/settings.yml
 +++ b/config/settings.yml
 @@ -1,6 +1,8 @@
  # The server protocol and host
  server_protocol: "http"
--server_url: "openstreetmap.example.com"
-+server_url: "localhost:3000"
+ server_url: "openstreetmap.example.com"
 +embed_server_url: "https://embed.openhistoricalmap.org/"
 +
  # Publisher
@@ -24,23 +23,7 @@ index f58a18e5f..96cf15e36 100644
  # Sender addresses for emails
  email_from: "OpenStreetMap <openstreetmap@example.com>"
  email_return_path: "openstreetmap@example.com"
-@@ -120,19 +124,19 @@ attachments_dir: ":rails_root/public/attachments"
- # MapTiler API key
- #maptiler_key: ""
- # List of memcache servers to use for caching
--#memcache_servers: []
-+#memcache_servers: "memcached:11211"
- # URL of Nominatim instance to use for geocoding
--nominatim_url: "https://nominatim.openstreetmap.org/"
-+nominatim_url: "nominatim-api.openhistoricalmap.org"
- # Default editor
- default_editor: "id"
- # OAuth application for the web site
--#oauth_application: ""
-+oauth_application: "Zj5OnOQLXJKgGYFMwsisuhsHR-FAg1khf-wr0nE3OWo"
- # OAuth application for iD
--#id_application: ""
-+id_application: "tCygIMWpJVZ2c-vWYC_kI_YnMow3WmGbKLp2Rq_WgHI"
+@@ -132,7 +136,7 @@ default_editor: "id"
  # Imagery to return in capabilities as blacklisted
  imagery_blacklist: []
  # URL of Overpass instance to use for feature queries

@@ -219,7 +219,7 @@ en:
     help: Help
     history: History
     home: Go to Home Location
-    hosting_partners_2024_html: OpenHistoricalMap is a charter project of %{osmus}, a 501(c)(3) nonprofit organization affiliated with the %{osmf}. Technical development is supported by %{greeninfo} and %{devseed}.
+    ohm_hosting_partners_html: OpenHistoricalMap is a charter project of %{osmus}, a 501(c)(3) nonprofit organization affiliated with the %{osmf}. Technical development is supported by %{greeninfo} and %{devseed}.
     intro_2_create_account: Create a user account
     intro_header: Welcome to OpenHistoricalMap!
     intro_text: OpenHistoricalMap is an interactive map of the world throughout history, created by people like you and dedicated to the public domain.
@@ -358,7 +358,7 @@ en:
 
         '
     any_questions:
-      paragraph_1_html: OpenHistoricalMap has several resources for learning about the project, asking and answering questions, and collaboratively discussing and documenting mapping topics. %{help_link}.
+      ohm_paragraph_1_html: OpenHistoricalMap has several resources for learning about the project, asking and answering questions, and collaboratively discussing and documenting mapping topics. %{help_link}.
     communities:
       lede_text: 'People from all over the world contribute to or use OpenHistoricalMap.
 

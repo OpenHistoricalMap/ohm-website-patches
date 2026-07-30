@@ -1,2 +1,6 @@
 app/views/site/communities.html.erb
 storage/.keep
+.github/workflows/tests.yml
+.github/workflows/docker.yml
+.github/workflows/danger.yml
+.github/workflows/devcontainer.yml

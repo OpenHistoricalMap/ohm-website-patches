@@ -30,17 +30,32 @@ jobs:
     - name: Apply OHM patches, overlays and removals
       run: ./scripts/apply.sh ../website
       working-directory: patches
-    - name: Commit and push to ohm-website-merged
-      working-directory: website
+    - name: Checkout ohm-website-merged
+      uses: actions/checkout@v4
+      with:
+        repository: OpenHistoricalMap/ohm-website-merged
+        token: ${{ secrets.MERGED_REPO_TOKEN }}
+        path: merged
+    - name: Open a pull request with the rendered tree
+      working-directory: merged
       env:
-        TOKEN: ${{ secrets.MERGED_REPO_TOKEN }}
+        GH_TOKEN: ${{ secrets.MERGED_REPO_TOKEN }}
       run: |
+        rsync -a --delete --exclude ".git" ../website/ ./
+        git add -A
+        if git diff --cached --quiet; then
+          echo "Merged tree is already up to date, nothing to publish."
+          exit 0
+        fi
         git config user.name "ohm-bot"
         git config user.email "bot@openhistoricalmap.org"
-        git add -A
+        BRANCH="patches-${GITHUB_SHA::7}"
+        git checkout -b "$BRANCH"
         git commit -m "Apply ohm-website-patches@${GITHUB_SHA::7} onto upstream ${{ steps.base.outputs.ref }}"
-        # Tag each render so every published SHA stays reachable after the
-        # force-push — ohm-deploy pins these SHAs and GitHub stops serving
-        # archives for unreachable commits.
-        git tag "merged-${GITHUB_SHA::7}"
-        git push --force "https://x-access-token:${TOKEN}@github.com/OpenHistoricalMap/ohm-website-merged.git" HEAD:main "refs/tags/merged-${GITHUB_SHA::7}"
+        git push --force origin "$BRANCH"
+        gh pr create \
+          --repo OpenHistoricalMap/ohm-website-merged \
+          --base main --head "$BRANCH" \
+          --title "Apply ohm-website-patches@${GITHUB_SHA::7}" \
+          --body "Rendered tree from OpenHistoricalMap/ohm-website-patches@${GITHUB_SHA} on upstream ${{ steps.base.outputs.ref }}." \
+          || echo "PR already exists for $BRANCH"

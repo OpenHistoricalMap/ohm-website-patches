@@ -1,5 +1,5 @@
 diff --git a/app/assets/javascripts/leaflet.map.js b/app/assets/javascripts/leaflet.map.js
-index ba12d7fbb..3eb143eac 100644
+index ba12d7fbb..cad8491eb 100644
 --- a/app/assets/javascripts/leaflet.map.js
 +++ b/app/assets/javascripts/leaflet.map.js
 @@ -3,6 +3,10 @@ L.extend(L.LatLngBounds.prototype, {
@@ -144,3 +144,15 @@ index ba12d7fbb..3eb143eac 100644
      }
  
      const { lat, lng } = OSM.cropLocation(latLng, zoom);
+@@ -291,7 +315,10 @@ L.OSM.Map = L.Map.extend({
+     } else { // element handled by L.OSM.DataLayer
+       const map = this;
+       this._objectLoader = new AbortController();
+-      fetch(OSM.apiUrl(object), {
++      // OHM: the external ohm-inspector fetches the same element URL as XML;
++      // an explicit .json URL keeps the two requests on separate cache keys so
++      // the browser can never hand the XML body to this JSON fetch.
++      fetch(OSM.apiUrl(object) + ".json", {
+         headers: { accept: "application/json", ...OSM.oauth },
+         signal: this._objectLoader.signal
+       })

@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - develop
 concurrency:
   group: publish-merged
   cancel-in-progress: false

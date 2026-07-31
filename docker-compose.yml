@@ -6,6 +6,9 @@ services:
       PIDFILE: /tmp/pids/server.pid
     volumes:
       - ${MERGED_DIR:-../ohm-website-merged}:/app
+      # dev-only entrypoint lives in this repo, not in the merged tree
+      # (mounted outside /app: Docker cannot mount a file inside another bind)
+      - ./start.sh:/usr/local/bin/ohm-start.sh
       - /app/node_modules/
       - web-tmp:/app/tmp
       - web-storage:/app/storage
@@ -20,12 +23,12 @@ services:
       - "3000:3000"
     stdin_open: true
     tty: true
-    command: ./start.sh
+    command: ["bash", "/usr/local/bin/ohm-start.sh"]
     depends_on:
       - db
       - memcached
     env_file:
-      - ohm-docker.dev.env
+      - dev.env
 
   memcached:
     image: memcached:latest
@@ -39,7 +42,7 @@ services:
     ports:
       - "54321:5432"
     env_file:
-        - ohm-docker.dev.env
+        - dev.env
     volumes:
       - db-data:/var/lib/postgresql/data
     networks:

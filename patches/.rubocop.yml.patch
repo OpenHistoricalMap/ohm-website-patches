@@ -1,0 +1,13 @@
+diff --git a/.rubocop.yml b/.rubocop.yml
+index 77f50acde..14b1f7879 100644
+--- a/.rubocop.yml
++++ b/.rubocop.yml
+@@ -16,6 +16,8 @@ AllCops:
+   NewCops: enable
+   Exclude:
+     - 'vendor/**/*'
++    # OHM development tooling, not application code
++    - 'lib/tasks/ohm_vs_osm_rb.rake'
+ 
+ Rails:
+   Enabled: true

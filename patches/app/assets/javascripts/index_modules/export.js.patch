@@ -1,5 +1,5 @@
 diff --git a/app/assets/javascripts/index_modules/export.js b/app/assets/javascripts/index_modules/export.js
-index 5b6c3e1e0..9ed174105 100644
+index 5b6c3e1e0..0da98ae65 100644
 --- a/app/assets/javascripts/index_modules/export.js
 +++ b/app/assets/javascripts/index_modules/export.js
 @@ -104,7 +104,6 @@ export default function (map) {
@@ -10,7 +10,7 @@ index 5b6c3e1e0..9ed174105 100644
      $("#export_overpass").on("click", async function (event) {
        event.preventDefault();
        const downloadUrl = $(this).attr("href");
-@@ -115,8 +114,11 @@ export default function (map) {
+@@ -115,6 +114,9 @@ export default function (map) {
      });
  
      update();
@@ -18,8 +18,5 @@ index 5b6c3e1e0..9ed174105 100644
 +    addOpenHistoricalMapTimeSlider(map);
 +
      return map.getState();
--  };
-+  }
+   };
  
-   page.unload = function () {
-     map

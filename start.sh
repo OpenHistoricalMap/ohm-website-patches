@@ -10,8 +10,18 @@ done
 
 restore_db() {
   export PGPASSWORD="$POSTGRES_PASSWORD"
-  curl -s -o backup.sql "$BACKUP_FILE_URL" 
-  psql -h "$POSTGRES_HOST" -U "$POSTGRES_USER" -d "$POSTGRES_DB" -f backup.sql 
+  # Only restore on first boot: skip if the database already has data.
+  if psql -h "$POSTGRES_HOST" -U "$POSTGRES_USER" -d "$POSTGRES_DB" -tAc \
+      "SELECT 1 FROM information_schema.tables WHERE table_name = 'users' LIMIT 1" | grep -q 1; then
+    echo "Database already loaded, skipping restore."
+    return
+  fi
+  echo "Empty database: restoring the seed backup (first boot only)."
+  echo "Downloading $BACKUP_FILE_URL ..."
+  curl -s -o backup.sql "$BACKUP_FILE_URL"
+  echo "Loading backup into Postgres, this takes a few minutes..."
+  psql -q -h "$POSTGRES_HOST" -U "$POSTGRES_USER" -d "$POSTGRES_DB" -f backup.sql > /dev/null
+  echo "Restore done."
   rm backup.sql
 }
 

@@ -1,8 +1,8 @@
 diff --git a/app/views/site/copyright.html.erb b/app/views/site/copyright.html.erb
-index 43a5d8661..f14b3e6d8 100644
+index 43a5d8661..7db95768d 100644
 --- a/app/views/site/copyright.html.erb
 +++ b/app/views/site/copyright.html.erb
-@@ -38,177 +38,113 @@
+@@ -38,177 +38,112 @@
  <% end %>
  
  <% I18n.with_locale @locale do %>
@@ -249,8 +249,7 @@ index 43a5d8661..f14b3e6d8 100644
 +      <%= t ".legal_babble.infringement_2_ohm_html",
 +            :contact_team_link => mail_to(Settings.legal_email,
 +                                          t(".legal_babble.infringement_2_ohm_contact_team"),
-+                                          subject: "TAKEDOWN REQUEST")
-+      %>
++                                          :subject => "TAKEDOWN REQUEST") %>
 +    </p>
 +
 +    <h3 id="trademarks">

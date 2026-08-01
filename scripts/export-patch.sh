@@ -54,6 +54,7 @@ for f in "$@"; do
     echo "!! $f still has conflict markers — fix them first"; exit 1
   fi
   git -C "$MERGED" add -- "$f"          # clears unmerged state
+  mkdir -p "$(dirname "$HERE/patches/$f.patch")"
   git -C "$MERGED" diff --cached -- "$f" > "$HERE/patches/$f.patch"
   echo "updated: patches/$f.patch"
 done

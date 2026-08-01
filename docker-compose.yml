@@ -6,9 +6,15 @@ services:
       PIDFILE: /tmp/pids/server.pid
     volumes:
       - ${MERGED_DIR:-../ohm-website-merged}:/app
+      # dev-only entrypoint lives in this repo, not in the merged tree
+      # (mounted outside /app: Docker cannot mount a file inside another bind)
+      - ./start.sh:/usr/local/bin/ohm-start.sh
       - /app/node_modules/
       - web-tmp:/app/tmp
       - web-storage:/app/storage
+      # selenium-manager downloads geckodriver on every fresh container;
+      # persist its cache so an offline github does not abort the test suite
+      - web-selenium-cache:/root/.cache/selenium
     networks:
       - web_network
     tmpfs:
@@ -17,12 +23,12 @@ services:
       - "3000:3000"
     stdin_open: true
     tty: true
-    command: ./start.sh
+    command: ["bash", "/usr/local/bin/ohm-start.sh"]
     depends_on:
       - db
       - memcached
     env_file:
-      - ohm-docker.dev.env
+      - dev.env
 
   memcached:
     image: memcached:latest
@@ -36,7 +42,7 @@ services:
     ports:
       - "54321:5432"
     env_file:
-        - ohm-docker.dev.env
+        - dev.env
     volumes:
       - db-data:/var/lib/postgresql/data
     networks:
@@ -45,6 +51,7 @@ services:
 volumes:
   web-tmp:
   web-storage:
+  web-selenium-cache:
   db-data:
     driver: local
     name: ohm_web_pg17

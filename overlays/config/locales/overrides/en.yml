@@ -1,7 +1,5 @@
-# OHM overrides for upstream en.yml — loaded AFTER config/locales/en.yml so
-# these keys win (I18n deep-merges by load order). Keep ONLY keys OHM
-# intentionally changes; everything else falls through to upstream.
-# Generated from staging vs upstream merge-base; prune stale keys over time.
+# OHM overrides for upstream en.yml. Loaded after it, so these keys win.
+# Keep only keys OHM changes; everything else falls through to upstream.
 en:
   accounts:
     deletions:
@@ -58,11 +56,11 @@ en:
         cc0_url: https://creativecommons.org/publicdomain/zero/1.0/
   date:
     formats:
-      brief: '%{year}'
-      brief_bce: '%{year} BCE'
-      brief_ce: '%{year} CE'
-      heatmap: '%B %-d'
-      range: '%{start} – %{end}'
+      brief: "%{year}"
+      brief_bce: "%{year} BCE"
+      brief_ce: "%{year} CE"
+      heatmap: "%B %-d"
+      range: "%{start} – %{end}"
   diary_entries:
     comments:
       description: Recent diary entries from users of OpenHistoricalMap
@@ -98,7 +96,6 @@ en:
   geocoder:
     search:
       title:
-        latlon: Internal
         latlon_url: https://openhistoricalmap.org/
         osm_nominatim: OpenHistoricalMap Nominatim
         osm_nominatim_reverse: OpenHistoricalMap Nominatim
@@ -170,19 +167,8 @@ en:
           track: Running Track
         shop:
           seafood: Sea Food
-      suffix_format: '[%{dates}]'
-  issues:
-    comments:
-      comment_from_html: Comment from %{user_link} on %{comment_created_at}
-      reassign_to_administrators: Reassign Issue to Administrators
-      reassign_to_moderators: Reassign Issue to Moderators
+      suffix_format: "[%{dates}]"
   javascripts:
-    heatmap:
-      tooltip:
-        contributions:
-          one: '%{count} contribution on %{date}'
-          other: '%{count} contributions on %{date}'
-        no_contributions: No contributions on %{date}
     legend:
       title: Map Key
       tooltip: Map Key
@@ -193,44 +179,23 @@ en:
         japanesescroll: Japanese Scroll
         railway: Railway
         woodblock: Woodblock
-      cc0_text: '%{copyright_link}'
-      locate:
-        feetPopup:
-          one: You are within %{count} foot of this point
-          other: You are within %{count} feet of this point
-        metersPopup:
-          one: You are within %{count} meter of this point
-          other: You are within %{count} meters of this point
-        title: Show My Location
+      cc0_text: "%{copyright_link}"
       openhistoricalmap_contributors: OHM
       zoom:
         in: Zoom In
         out: Zoom Out
     query:
-      suffix_format: '[%{dates}]'
+      suffix_format: "[%{dates}]"
   layouts:
-    about: About
-    communities: Communities
-    copyright: Copyright
-    edit: Edit
-    edit_with: Edit with %{editor}
-    export: Export
-    gps_traces: GPS Traces
-    help: Help
-    history: History
-    home: Go to Home Location
     ohm_hosting_partners_html: OpenHistoricalMap is a charter project of %{osmus}, a 501(c)(3) nonprofit organization affiliated with the %{osmf}. Technical development is supported by %{greeninfo} and %{devseed}.
     intro_2_create_account: Create a user account
     intro_header: Welcome to OpenHistoricalMap!
     intro_text: OpenHistoricalMap is an interactive map of the world throughout history, created by people like you and dedicated to the public domain.
-    issues: Issues
-    log_in: Log In
     logo:
       alt_text: OpenHistoricalMap logo
     logout: Log Out
     meta:
       openstreetmap_search: OpenHistoricalMap Search
-    more: More
     offline_flash:
       osm_offline: The OpenHistoricalMap database is currently offline while essential maintenance work is carried out.
       osm_read_only: The OpenHistoricalMap database is currently in read-only mode while essential maintenance work is carried out.
@@ -238,13 +203,10 @@ en:
     partners_greeninfo: GreenInfo Network
     partners_osmf: OpenStreetMap Foundation
     partners_osmus: OpenStreetMap U.S.
-    partners_title: Partners
     project_name:
       h1: OpenHistoricalMap
       title: OpenHistoricalMap
-    sign_up: Sign Up
     tag_line: The Free Wiki World Map
-    user_diaries: User Diaries
   notes:
     new:
       counter_warning_forum_link:
@@ -264,7 +226,7 @@ en:
         advanced_preferences: Advanced Preferences
         preferences: Preferences
   printable_name:
-    with_date_html: '%{name} [%{dates}]'
+    with_date_html: "%{name} [%{dates}]"
   sessions:
     destroy:
       heading: Logout from OpenHistoricalMap
@@ -280,25 +242,19 @@ en:
       contribute_1_bluesky: Bluesky
       contribute_1_forum: our discussion forum
       contribute_1_mastodon: Mastodon
-      contribute_1_ohm_html: 'Our growing community of volunteer contributors includes amateur and professional historians, OpenStreetMap and Wikipedia contributors, GIS specialists, and ordinary people knowledgeable about their surroundings.
-
+      contribute_1_ohm_html: |
+        Our growing community of volunteer contributors includes amateur and professional historians, OpenStreetMap and Wikipedia contributors, GIS specialists, and ordinary people knowledgeable about their surroundings.
         We are passionate about documenting the world and helping real-world communities tell their stories.
-
         To learn more about the community, consult %{wiki_link}, visit %{forum_link}, read the %{user_diaries_link}, and follow our %{mastodon_link} or %{bluesky_link} account.
-
-        '
       contribute_1_user_diaries: user diaries
       contribute_1_wiki: our extensive wiki documentation
       contribute_1_wiki_url: https://wiki.openstreetmap.org/wiki/OpenHistoricalMap
       contribute_2_create_account: creating a free account
       contribute_2_donations: accept charitable donations
-      contribute_2_html: 'You can start contributing to the map today by %{create_account_link}.
-
+      contribute_2_html: |
+        You can start contributing to the map today by %{create_account_link}.
         We also %{donations_link} through %{osmus_link}, a 501(c)(3) nonprofit organization with tax-exempt status.
-
         Your generous donation will go directly toward keeping OpenHistoricalMap running smoothly for everyone.
-
-        '
       contribute_2_osmus: OpenStreetMap U.S.
       contribute_title: You Can Help
       legal_1_1_terms_of_use_url: https://wiki.osmfoundation.org/wiki/Licence/Contributor_Terms
@@ -306,11 +262,9 @@ en:
       legal_1_aup_url: https://wiki.openstreetmap.org/wiki/Acceptable_Use_Policy
       legal_1_group: an informal group
       legal_1_group_url: https://wiki.openstreetmap.org/wiki/OpenHistoricalMap/Governance
-      legal_1_html: 'This site and related services are operated by %{group_link} affiliated with OpenStreetMap U.S. on behalf of the community.
-
+      legal_1_html: |
+        This site and related services are operated by %{group_link} affiliated with OpenStreetMap U.S. on behalf of the community.
         Use of all OpenHistoricalMap services is subject to our %{terms_of_use_link}, %{aup_link}, and %{privacy_policy_link}.
-
-        '
       legal_1_privacy_policy: Privacy Policy
       legal_1_privacy_policy_url: https://osmfoundation.org/wiki/Privacy_Policy
       legal_1_terms_of_use: Terms of Use
@@ -319,39 +273,27 @@ en:
       legal_2_html: 'Please %{contact_team_link} with any licensing, copyright, or other legal questions.
 
         '
-      legal_3_html: 'OpenHistoricalMap® is a registered trademark (U.S. Reg. No. 90,019,364).
-
+      legal_3_html: |
+        OpenHistoricalMap® is a registered trademark (U.S. Reg. No. 90,019,364).
         OpenStreetMap and the magnifying glass logo are %{osmf_trademarks_link}.
-
-        '
       legal_3_osmf_trademarks: registered trademarks of the OpenStreetMap Foundation
       legal_3_osmf_trademarks_url: https://osmfoundation.org/wiki/Trademark_Policy
-      open_data_1_1_html: 'The map on our homepage is just one of many ways to experience the historical information we’ve collected.
-
+      open_data_1_1_html: |
+        The map on our homepage is just one of many ways to experience the historical information we’ve collected.
         The underlying data is %{reuse_link} as a download or through various free APIs compatible with open source software.
-
-        '
       open_data_1_1_reuse: available for reuse
       open_data_1_1_reuse_url: https://wiki.openstreetmap.org/wiki/OpenHistoricalMap/Reuse
       open_data_2_copyright_license: Copyright and Acknowledgements
-      open_data_2_html: 'The data is in the public domain unless noted otherwise.
-
+      open_data_2_html: |
+        The data is in the public domain unless noted otherwise.
         You are free to use it for any purpose, without any restrictions.
-
         Nonetheless, we greatly appreciate any credit or citation you provide to OpenHistoricalMap.
-
         For more details and acknowledgments, see %{copyright_license_link}.
-
-        '
-      scope_html: 'Empires rise and fall. Glaciers disappear. Languages and religions spread from one region to another.
-
+      scope_html: |
+        Empires rise and fall. Glaciers disappear. Languages and religions spread from one region to another.
         Simple dirt paths become busy highways and railways. Modest buildings give way to soaring skyscrapers.
-
         And you remember what your neighborhood used to look like.
-
         All of it belongs on OpenHistoricalMap.
-
-        '
       scope_title: Big and Small, Then and Now
     add_a_note:
       para_1: 'If you just want something small fixed and don''t have the time to sign up and learn how to edit, it''s easy to add a note.
@@ -360,13 +302,10 @@ en:
     any_questions:
       ohm_paragraph_1_html: OpenHistoricalMap has several resources for learning about the project, asking and answering questions, and collaboratively discussing and documenting mapping topics. %{help_link}.
     communities:
-      lede_text: 'People from all over the world contribute to or use OpenHistoricalMap.
-
+      lede_text: |
+        People from all over the world contribute to or use OpenHistoricalMap.
         While many participate as individuals, others have formed communities.
-
         These groups come in a range of sizes and represent geographies from small towns to large multi-country regions. They can also be formal or informal.
-
-        '
     copyright:
       legal_babble:
         attribution_example:
@@ -381,13 +320,10 @@ en:
 
           '
         contributors_anr_communes_project: ANR COMMUNES
-        contributors_footer_2_html: 'Inclusion of data in OpenHistoricalMap does not imply that the original
-
+        contributors_footer_2_html: |
+          Inclusion of data in OpenHistoricalMap does not imply that the original
           data provider endorses OpenHistoricalMap, provides any warranty, or
-
           accepts any liability.
-
-          '
         contributors_globcover: GlobCover
         contributors_globcover_html: 'Land cover from %{globcover_link}, © ESA 2010 and UCLouvain, available for reuse for educational and/or scientific purposes with attribution.
 
@@ -396,20 +332,14 @@ en:
         contributors_gmted_html: 'Terrain elevation data from Danielson, J.J., and Gesch, D.B., 2011, %{gmted_link} (GMTED2010): U.S. Geological Survey Open-File Report 2011–1073, 26 p. Public domain.
 
           '
-        contributors_intro_html: 'OpenHistoricalMap is the collaborative effort of thousands of individuals and organizations, who in turn draw from a large body of scholarship, journalism, and recordkeeping.
-
+        contributors_intro_html: |
+          OpenHistoricalMap is the collaborative effort of thousands of individuals and organizations, who in turn draw from a large body of scholarship, journalism, and recordkeeping.
           Our most substantial sources and contributors include:
-
-          '
-        contributors_more_sources_html: '%{sources_link} are available on the OpenStreetMap Wiki.
-
-          '
+        contributors_more_sources_html: "%{sources_link} are available on the OpenStreetMap Wiki.\n"
         contributors_more_sources_page: Additional sources and contributors
         contributors_more_sources_page_url: https://wiki.openstreetmap.org/wiki/OpenHistoricalMap/Sources
         contributors_natural_earth: Natural Earth
-        contributors_natural_earth_html: '%{natural_earth_link} datasets in the public domain.
-
-          '
+        contributors_natural_earth_html: "%{natural_earth_link} datasets in the public domain.\n"
         contributors_newberry: The Newberry Library
         contributors_newberry_ahcb: Atlas of Historical County Boundaries
         contributors_newberry_ahcb_html: 'Data from the %{ahcb_link}, a project of the William M. Scholl Center for American History and Culture at %{newberry_link}, which is available for reuse without restriction.
@@ -426,55 +356,42 @@ en:
 
           '
         credit_2_home: our homepage
-        credit_2_ohm_html: 'You may present this acknowledgment in any reasonable manner.
-
+        credit_2_ohm_html: |
+          You may present this acknowledgment in any reasonable manner.
           For example, on a digital map, you can mention OpenHistoricalMap in fine print in the corner, linking to %{this_copyright_page_link} or %{home_link}:
-
-          '
         credit_2_this_copyright_page: this copyright page
         credit_3_credit_html: Map data courtesy of the %{project_link} project, in the public domain unless otherwise noted.
         credit_3_ohm_html: 'Or you can include a clearer acknowledgment on a separate credits page where you credit other sources:
 
           '
         credit_3_project: OpenHistoricalMap
-        credit_4_ohm_html: 'On a print map, you can place the acknowledgement in the legend.
-
+        credit_4_ohm_html: |
+          On a print map, you can place the acknowledgement in the legend.
           In a book, you can describe your use of OpenHistoricalMap in a footnote, bibliography, or colophon.
-
           In an academic paper, you can cite us in various manners depending on what you used.
-
-          '
         credit_title_html: How to credit OpenHistoricalMap
         infringement_1_html: 'OHM contributors are reminded never to add data from any copyrighted sources (e.g. Google Maps or printed maps) without explicit permission from the copyright holders.
 
           '
         infringement_2_ohm_contact_team: contact the OpenHistoricalMap team with "TAKEDOWN REQUEST" in the subject line
-        infringement_2_ohm_html: 'If you believe that copyrighted material has been inappropriately
-
+        infringement_2_ohm_html: |
+          If you believe that copyrighted material has been inappropriately
           added to the OpenHistoricalMap database or this site, please %{contact_team_link}.
-
-          '
         introduction_1_cc0: Creative Commons CC0
         introduction_1_cc0_url: https://creativecommons.org/publicdomain/zero/1.0/
-        introduction_1_ohm_html: 'OpenHistoricalMap is a collection of open geospatial data.
-
+        introduction_1_ohm_html: |
+          OpenHistoricalMap is a collection of open geospatial data.
           Except where otherwise noted, OpenHistoricalMap data is dedicated to the public domain under a %{cc0_link} dedication.
-
           To the extent that what you use is in the public domain, you are free to copy, distribute, transmit, and adapt it for any purpose, without any restrictions.
-
-          '
         introduction_2_cc_by: Creative Commons Attribution
         introduction_2_cc_by_sa: Creative Commons Attribution-ShareAlike
         introduction_2_cc_by_sa_url: https://creativecommons.org/licenses/by-sa/4.0/
         introduction_2_cc_by_url: https://creativecommons.org/licenses/by/4.0/
         introduction_2_license_key_url: https://wiki.openstreetmap.org/wiki/OpenHistoricalMap/Tags/Key/license
-        introduction_2_ohm_html: 'The OpenHistoricalMap database incorporates some individual map features under copyright.
-
+        introduction_2_ohm_html: |
+          The OpenHistoricalMap database incorporates some individual map features under copyright.
           These features are available under an open license, such as %{cc_by_link} (CC&nbsp;BY) or %{cc_by_sa_link} (CC&nbsp;BY-SA), as noted in %{license_key_link} tags on individual elements.
-
           To the extent that you use any significant portion of the database that is covered by a “share alike” license, you should respect the terms of this license in your own adaptation.
-
-          '
         introduction_3_ohm_html: 'The map styles featured on our homepage are dedicated to the public domain under a CC0 dedication. You are free to copy, distribute, transmit, and adapt them for any purpose, without any restrictions.
 
           '
@@ -490,13 +407,10 @@ en:
         more_1_wiki_url: https://wiki.openstreetmap.org/wiki/OpenHistoricalMap/License
         more_2_1_api_usage_policy: API Usage Policy
         more_2_1_api_usage_policy_url: https://operations.osmfoundation.org/policies/api/
-        more_2_1_html: 'Although OpenHistoricalMap is open data, we cannot provide a
-
+        more_2_1_html: |
+          Although OpenHistoricalMap is open data, we cannot provide a
           free-of-charge map API or map tiles for third-parties.
-
           See our %{api_usage_policy_link}, %{tile_usage_policy_link} and %{nominatim_usage_policy_link}.
-
-          '
         more_2_1_nominatim_usage_policy: Nominatim Usage Policy
         more_2_1_nominatim_usage_policy_url: https://operations.osmfoundation.org/policies/nominatim/
         more_2_1_tile_usage_policy: Tile Usage Policy
@@ -590,31 +504,23 @@ en:
 
         '
       rules:
-        para_1_html: 'OpenHistoricalMap has few formal rules but we expect all participants to collaborate
-
+        para_1_html: |
+          OpenHistoricalMap has few formal rules but we expect all participants to collaborate
           with, and communicate with, the community. If you are considering
-
           any activities other than editing by hand, please read and follow the guidelines on
-
           %{imports_link} and %{automated_edits_link}.
-
-          '
       whats_on_the_map:
-        off_the_map_html: 'OpenHistoricalMap %{doesnt} include fictional alternative histories,
-
-          known errors from antique maps, and data from copyrighted sources. Unless you have special permission, don''t copy from modern maps of the past that you find online or in print.
-
-          '
-        on_the_map_ohm_html: 'OpenHistoricalMap tracks changes to natural and human geography throughout the world.
-
+        off_the_map_html: |
+          OpenHistoricalMap %{doesnt} include fictional alternative histories,
+          known errors from antique maps, and data from copyrighted sources. Unless you have special permission, don't copy from modern maps of the past that you find online or in print.
+        on_the_map_ohm_html: |
+          OpenHistoricalMap tracks changes to natural and human geography throughout the world.
           We have millions of entries from %{past_and_present}, from empires and glaciers to houses and restaurants. You can map whatever real-world features are interesting to you.
-
-          '
         past_and_present: both the past and present
   time:
     formats:
-      blog: '%B %e, %Y'
-      friendly: '%B %e, %Y at %H:%M'
+      blog: "%B %e, %Y"
+      friendly: "%B %e, %Y at %H:%M"
   traces:
     feeds:
       show:
@@ -629,58 +535,54 @@ en:
   user_mailer:
     changeset_comment_notification:
       commented:
-        subject_other: '[OpenHistoricalMap] %{commenter} has commented on a changeset you are interested in'
-        subject_own: '[OpenHistoricalMap] %{commenter} has commented on one of your changesets'
+        subject_other: "[OpenHistoricalMap] %{commenter} has commented on a changeset you are interested in"
+        subject_own: "[OpenHistoricalMap] %{commenter} has commented on one of your changesets"
       description: 'OpenHistoricalMap Changeset #%{id}'
     diary_comment_notification:
       description: 'OpenHistoricalMap Diary Entry #%{id}'
-      header: '%{from_user} has commented on the OpenHistoricalMap diary entry with the subject %{subject}:'
-      header_html: '%{from_user} has commented on the OpenHistoricalMap diary entry with the subject %{subject}:'
-      subject: '[OpenHistoricalMap] %{user} commented on a diary entry'
+      header: "%{from_user} has commented on the OpenHistoricalMap diary entry with the subject %{subject}:"
+      header_html: "%{from_user} has commented on the OpenHistoricalMap diary entry with the subject %{subject}:"
+      subject: "[OpenHistoricalMap] %{user} commented on a diary entry"
     email_confirm:
-      subject: '[OpenHistoricalMap] Confirm your email address'
+      subject: "[OpenHistoricalMap] Confirm your email address"
     follow_notification:
-      followed_you: '%{user} is now following you on OpenHistoricalMap.'
-      subject: '[OpenHistoricalMap] %{user} followed you'
+      followed_you: "%{user} is now following you on OpenHistoricalMap."
+      subject: "[OpenHistoricalMap] %{user} followed you"
     gpx_failure:
-      subject: '[OpenHistoricalMap] GPX Import failure'
+      subject: "[OpenHistoricalMap] GPX Import failure"
     gpx_success:
-      subject: '[OpenHistoricalMap] GPX Import success'
+      subject: "[OpenHistoricalMap] GPX Import success"
     lost_password:
       hopefully_you: Someone (possibly you) has asked for the password to be reset on this email address's openhistoricalmap.org account.
-      subject: '[OpenHistoricalMap] Password reset request'
+      subject: "[OpenHistoricalMap] Password reset request"
     message_notification:
-      header: '%{from_user} has sent you a message through OpenHistoricalMap with the subject %{subject}:'
-      header_html: '%{from_user} has sent you a message through OpenHistoricalMap with the subject %{subject}:'
-      subject: '[OpenHistoricalMap] %{message_title}'
+      header: "%{from_user} has sent you a message through OpenHistoricalMap with the subject %{subject}:"
+      header_html: "%{from_user} has sent you a message through OpenHistoricalMap with the subject %{subject}:"
+      subject: "[OpenHistoricalMap] %{message_title}"
     note_comment_notification:
       closed:
-        subject_other: '[OpenHistoricalMap] %{commenter} has resolved a note you are interested in'
-        subject_own: '[OpenHistoricalMap] %{commenter} has resolved one of your notes'
+        subject_other: "[OpenHistoricalMap] %{commenter} has resolved a note you are interested in"
+        subject_own: "[OpenHistoricalMap] %{commenter} has resolved one of your notes"
       commented:
-        subject_other: '[OpenHistoricalMap] %{commenter} has commented on a note you are interested in'
-        subject_own: '[OpenHistoricalMap] %{commenter} has commented on one of your notes'
+        subject_other: "[OpenHistoricalMap] %{commenter} has commented on a note you are interested in"
+        subject_own: "[OpenHistoricalMap] %{commenter} has commented on one of your notes"
       description: 'OpenHistoricalMap Note #%{id}'
       reopened:
-        subject_other: '[OpenHistoricalMap] %{commenter} has reactivated a note you are interested in'
-        subject_own: '[OpenHistoricalMap] %{commenter} has reactivated one of your notes'
+        subject_other: "[OpenHistoricalMap] %{commenter} has reactivated a note you are interested in"
+        subject_own: "[OpenHistoricalMap] %{commenter} has reactivated one of your notes"
     signup_confirm:
-      subject: '[OpenHistoricalMap] Welcome to OpenHistoricalMap'
+      subject: "[OpenHistoricalMap] Welcome to OpenHistoricalMap"
   users:
     auth_association:
       heading: Your ID is not associated with a OpenHistoricalMap account yet.
-      option_1: 'If you are new to OpenHistoricalMap, please create a new account
-
+      option_1: |
+        If you are new to OpenHistoricalMap, please create a new account
         using the form below.
-
-        '
     new:
       about:
-        paragraph_1: 'Unlike other maps, OpenHistoricalMap is completely created by people like you,
-
-          and it''s free for anyone to fix, update, download and use.
-
-          '
+        paragraph_1: |
+          Unlike other maps, OpenHistoricalMap is completely created by people like you,
+          and it's free for anyone to fix, update, download and use.
         paragraph_2: 'Sign up to get started contributing. We''ll send an email to confirm your account.
 
           '
@@ -688,21 +590,6 @@ en:
       duplicate_social_email: If you already have an OpenHistoricalMap account and wish to use a 3rd party identity provider, please log in using your password and modify the settings of your account.
       please_contact_support_html: Please contact %{support_link} to arrange for an account to be created - we will try and deal with the request as quickly as possible.
       signup_to_authorize_html: Sign up with OpenHistoricalMap to access %{client_app_name}.
-    role_icons:
-      grant:
-        administrator: Grant administrator access
-        are_you_sure: Are you sure you want to grant the role '%{role}' to the user '%{name}'?
-        importer: Grant importer access
-        moderator: Grant moderator access
-      revoke:
-        administrator: Revoke administrator access
-        are_you_sure: Are you sure you want to revoke the role '%{role}' from the user '%{name}'?
-        importer: Revoke importer access
-        moderator: Revoke moderator access
-      title:
-        administrator: This user is an administrator
-        importer: This user is an importer
-        moderator: This user is a moderator
     show:
       delete_user: Delete this User
       hide_user: Hide this User

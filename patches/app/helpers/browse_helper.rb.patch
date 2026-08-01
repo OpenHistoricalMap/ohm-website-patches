@@ -1,5 +1,5 @@
 diff --git a/app/helpers/browse_helper.rb b/app/helpers/browse_helper.rb
-index 10ff38d92..b9d5ac156 100644
+index 10ff38d92..0964ba37d 100644
 --- a/app/helpers/browse_helper.rb
 +++ b/app/helpers/browse_helper.rb
 @@ -1,6 +1,8 @@
@@ -17,8 +17,8 @@ index 10ff38d92..b9d5ac156 100644
        feature_name = feature_name(object.tags)
 +
 +      if (object.tags.include? "start_date") || (object.tags.include? "end_date")
-+        start_date = (object.tags.include? "start_date") ? object.tags["start_date"].to_s : nil
-+        end_date = (object.tags.include? "end_date") ? object.tags["end_date"].to_s : nil
++        start_date = object.tags.include?("start_date") ? object.tags["start_date"].to_s : nil
++        end_date = object.tags.include?("end_date") ? object.tags["end_date"].to_s : nil
 +        feature_name = t "printable_name.with_date_html", :name => tag.bdi(feature_name), :dates => DateRange.new(start_date, end_date).to_s
 +      end
 +

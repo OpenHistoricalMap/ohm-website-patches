@@ -1,5 +1,5 @@
 diff --git a/test/application_system_test_case.rb b/test/application_system_test_case.rb
-index be7b35f0c..e35291fd6 100644
+index be7b35f0c..639ed7643 100644
 --- a/test/application_system_test_case.rb
 +++ b/test/application_system_test_case.rb
 @@ -13,6 +13,10 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase

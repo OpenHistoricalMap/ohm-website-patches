@@ -1,0 +1,106 @@
+name: Update OHM dependencies
+# Weekly bump of the @openhistoricalmap/* npm packages that OHM adds on top
+# of upstream (map-styles, id, maplibre-gl-language). Upstream dependencies
+# are not touched here — they arrive when UPSTREAM_BASE is bumped.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 12 * * 1'
+concurrency:
+  group: update-ohm-deps
+  cancel-in-progress: false
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+    - name: Checkout ohm-website-patches
+      uses: actions/checkout@v4
+      with:
+        path: patches
+    - name: Read upstream base
+      id: base
+      run: echo "ref=$(cat UPSTREAM_BASE)" >> "$GITHUB_OUTPUT"
+      working-directory: patches
+    - name: Checkout openstreetmap-website at upstream base
+      uses: actions/checkout@v4
+      with:
+        repository: openstreetmap/openstreetmap-website
+        ref: ${{ steps.base.outputs.ref }}
+        path: website
+        persist-credentials: false
+    - name: Apply OHM patches, overlays and removals
+      run: ./scripts/apply.sh ../website
+      working-directory: patches
+    - name: Setup node
+      uses: actions/setup-node@v4
+      with:
+        node-version-file: website/.nvmrc
+    - name: Bump @openhistoricalmap packages
+      id: bump
+      working-directory: website
+      run: |
+        : > /tmp/changes.txt
+        for pkg in $(jq -r '.dependencies | keys[] | select(startswith("@openhistoricalmap/"))' package.json); do
+          spec=$(jq -r --arg p "$pkg" '.dependencies[$p]' package.json)
+          latest=$(npm view "$pkg" version)
+          case "$spec" in
+            \^*) new="^$latest"; cur="${spec#^}" ;;
+            \~*) new="~$latest"; cur="${spec#~}" ;;
+            *)   new="$latest";  cur="$spec" ;;
+          esac
+          if [ "$cur" != "$latest" ]; then
+            npm pkg set "dependencies.$pkg=$new"
+            echo "- \`$pkg\` $cur -> $latest" >> /tmp/changes.txt
+            echo "bump: $pkg $cur -> $latest"
+          else
+            echo "ok: $pkg $cur is latest"
+          fi
+        done
+        if [ -s /tmp/changes.txt ]; then
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+        else
+          echo "changed=false" >> "$GITHUB_OUTPUT"
+          echo "All OHM packages are up to date."
+        fi
+    - name: Refresh yarn.lock
+      if: steps.bump.outputs.changed == 'true'
+      working-directory: website
+      run: yarn install --no-audit
+    - name: Export patch and lockfile overlay
+      if: steps.bump.outputs.changed == 'true'
+      working-directory: website
+      run: |
+        git add package.json
+        git diff --cached -- package.json > ../patches/patches/package.json.patch
+        cp yarn.lock ../patches/overlays/yarn.lock
+    - name: Open a pull request
+      if: steps.bump.outputs.changed == 'true'
+      working-directory: patches
+      env:
+        GH_TOKEN: ${{ secrets.MERGED_REPO_TOKEN || github.token }}
+      run: |
+        if git diff --quiet; then
+          echo "Patches already match the latest versions, nothing to do."
+          exit 0
+        fi
+        git config user.name "ohm-bot"
+        git config user.email "bot@openhistoricalmap.org"
+        BRANCH="update-ohm-deps"
+        git checkout -b "$BRANCH"
+        git add patches/package.json.patch overlays/yarn.lock
+        git commit -m "Update OHM npm packages" -m "$(cat /tmp/changes.txt)"
+        git push --force origin "$BRANCH"
+        {
+          echo "Weekly automated bump of the OHM npm packages:"
+          echo ""
+          cat /tmp/changes.txt
+        } > /tmp/body.md
+        gh pr create \
+          --base main --head "$BRANCH" \
+          --title "Update OHM npm packages" \
+          --body-file /tmp/body.md \
+          || gh pr edit "$BRANCH" --body-file /tmp/body.md

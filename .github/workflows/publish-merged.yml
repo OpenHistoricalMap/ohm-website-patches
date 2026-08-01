@@ -4,6 +4,13 @@ on:
   push:
     branches:
       - main
+    paths:
+      - 'patches/**'
+      - 'overlays/**'
+      - 'REMOVALS'
+      - 'UPSTREAM_BASE'
+      - 'scripts/apply.sh'
+      - '.github/workflows/publish-merged.yml'
 concurrency:
   group: publish-merged
   cancel-in-progress: false
@@ -53,9 +60,16 @@ jobs:
         git checkout -b "$BRANCH"
         git commit -m "Apply ohm-website-patches@${GITHUB_SHA::7} onto upstream ${{ steps.base.outputs.ref }}"
         git push --force origin "$BRANCH"
-        gh pr create \
+        if ! gh pr create \
           --repo OpenHistoricalMap/ohm-website-merged \
           --base main --head "$BRANCH" \
           --title "Apply ohm-website-patches@${GITHUB_SHA::7}" \
-          --body "Rendered tree from OpenHistoricalMap/ohm-website-patches@${GITHUB_SHA} on upstream ${{ steps.base.outputs.ref }}." \
-          || echo "PR already exists for $BRANCH"
+          --body "Rendered tree from OpenHistoricalMap/ohm-website-patches@${GITHUB_SHA} on upstream ${{ steps.base.outputs.ref }}."; then
+          EXISTING=$(gh pr list --repo OpenHistoricalMap/ohm-website-merged --head "$BRANCH" --json number --jq '.[].number')
+          if [ -n "$EXISTING" ]; then
+            echo "PR #$EXISTING already exists for $BRANCH"
+          else
+            echo "::error::Could not create the PR and none exists for $BRANCH (check MERGED_REPO_TOKEN permissions: Pull requests: write)"
+            exit 1
+          fi
+        fi

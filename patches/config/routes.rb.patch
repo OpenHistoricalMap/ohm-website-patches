@@ -1,5 +1,5 @@
 diff --git a/config/routes.rb b/config/routes.rb
-index 57a4cd89f..f39bd6d32 100644
+index 60cd94f0a..9db7d2e46 100644
 --- a/config/routes.rb
 +++ b/config/routes.rb
 @@ -197,7 +197,6 @@ OpenStreetMap::Application.routes.draw do

@@ -1,5 +1,5 @@
 diff --git a/app/abilities/ability.rb b/app/abilities/ability.rb
-index 1d747110a..bac832b65 100644
+index 9953cb0f5..9dd5e1f72 100644
 --- a/app/abilities/ability.rb
 +++ b/app/abilities/ability.rb
 @@ -9,8 +9,8 @@ class Ability

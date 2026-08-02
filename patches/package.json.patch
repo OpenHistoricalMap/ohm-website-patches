@@ -1,12 +1,15 @@
 diff --git a/package.json b/package.json
-index 3576631e7..59e8422e8 100644
+index 3576631e7..8fa26329f 100644
 --- a/package.json
 +++ b/package.json
-@@ -1,13 +1,16 @@
+@@ -1,13 +1,19 @@
  {
 -  "name": "openstreetmap",
 +  "name": "openhistoricalmap",
    "private": true,
++  "scripts": {
++    "postinstall": "ln -sfn ../node_modules/@openhistoricalmap/map-styles/dist public/map-styles"
++  },
    "dependencies": {
      "@mapbox/mapbox-gl-rtl-text": "*",
      "@mapbox/polyline": "*",
@@ -21,7 +24,7 @@ index 3576631e7..59e8422e8 100644
      "i18n-js": "*",
      "js-cookie": "*",
      "leaflet": "*",
-@@ -15,6 +18,7 @@
+@@ -15,6 +21,7 @@
      "make-plural": "*",
      "maplibre-gl": "< 6.0.0",
      "osm-community-index": "*",

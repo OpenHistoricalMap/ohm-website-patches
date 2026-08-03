@@ -1,11 +1,11 @@
 services:
   web:
     build:
-      context: ${MERGED_DIR:-../ohm-website-merged}
+      context: ./merged
     environment:
       PIDFILE: /tmp/pids/server.pid
     volumes:
-      - ${MERGED_DIR:-../ohm-website-merged}:/app
+      - ./merged:/app
       # dev-only entrypoint lives in this repo, not in the merged tree
       # (mounted outside /app: Docker cannot mount a file inside another bind)
       - ./start.sh:/usr/local/bin/ohm-start.sh

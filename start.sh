@@ -2,6 +2,11 @@
 workdir=/app
 set -x
 
+# package.json's postinstall links public/map-styles at image build time, but
+# the merged/ bind mount covers /app and hides it. Recreate it in the mount so
+# the styleUrls in config/layers.yml resolve.
+ln -sfn ../node_modules/@openhistoricalmap/map-styles/dist "$workdir/public/map-styles"
+
 echo "Waiting for PostgreSQL to be ready..."
 until pg_isready -h "$POSTGRES_HOST" -p 5432; do
   sleep 2

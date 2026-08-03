@@ -8,6 +8,14 @@
 set -uo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+REF="${1:-$(cat "$ROOT/UPSTREAM_BASE")}"
+
+# First run: no upstream clone yet.
+[ -d "$ROOT/upstream/.git" ] || \
+  git clone https://github.com/openstreetmap/openstreetmap-website.git "$ROOT/upstream" || exit 1
+# Old clone that does not have the requested commit yet.
+git -C "$ROOT/upstream" cat-file -e "$REF^{commit}" 2>/dev/null || \
+  git -C "$ROOT/upstream" fetch origin master --tags || exit 1
 
 # Stop the dev web container first: while it runs, its mounts keep
 # node_modules/tmp/storage inside merged/ undeletable.
@@ -24,7 +32,7 @@ if [ -e "$ROOT/merged" ]; then
 fi
 
 git -C "$ROOT/upstream" worktree prune
-git -C "$ROOT/upstream" worktree add --detach "$ROOT/merged" "${1:-$(cat "$ROOT/UPSTREAM_BASE")}" || exit 1
+git -C "$ROOT/upstream" worktree add --detach "$ROOT/merged" "$REF" || exit 1
 cd "$ROOT/merged"
 
 # 1. patches (diffs on upstream files)
@@ -33,12 +41,13 @@ for p in $(find "$ROOT/patches" -name '*.patch' | sort); do
   git apply --3way "$p" 2>/dev/null || { echo "conflict: ${p#"$ROOT"/patches/}"; FAILED=$((FAILED+1)); }
 done
 
-# Rename the conflict markers: "ours/theirs" -> "OSM upstream (date) / OHM patch"
+# Rename the conflict markers: "ours/theirs" -> "OSM upstream (date) / OHM patch".
+# perl, not sed: in-place editing has a different syntax in BSD and GNU sed.
 OSM_DATE=$(git log -1 --format=%cs HEAD)
 grep -rl '^<<<<<<< ours' . --exclude-dir=node_modules --exclude-dir=.git 2>/dev/null \
   | while read -r f; do
-      sed -i '' -e "s/^<<<<<<< ours/<<<<<<< OSM upstream ($OSM_DATE)/" \
-                -e "s/^>>>>>>> theirs/>>>>>>> OHM patch/" "$f"
+      perl -pi -e "s/^<<<<<<< ours/<<<<<<< OSM upstream ($OSM_DATE)/;
+                   s/^>>>>>>> theirs/>>>>>>> OHM patch/" "$f"
     done
 
 # 2. overlays (OHM-only files) and removals

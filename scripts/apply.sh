@@ -11,6 +11,12 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 DEST="${1:-/var/www}"
 
 [ -d "$DEST" ] || { echo "Error: destination not found: $DEST" >&2; exit 1; }
+# Must be a git checkout: this script overwrites and deletes files, and git is
+# what makes a wrong destination recoverable (git reset --hard + git clean -fd).
+git -C "$DEST" rev-parse --git-dir >/dev/null 2>&1 || {
+  echo "Error: $DEST is not a git checkout — refusing to touch it." >&2
+  exit 1
+}
 # Make it absolute: the copy step below runs from another folder.
 DEST="$(cd "$DEST" && pwd)"
 

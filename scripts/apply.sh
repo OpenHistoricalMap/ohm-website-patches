@@ -1,55 +1,44 @@
 #!/usr/bin/env bash
-# Apply OHM customizations on top of an openstreetmap-website checkout.
-# 1. patches/  — per-file diffs for upstream files OHM modifies
-# 2. overlays/ — whole files OHM adds (plus modified binaries)
-# 3. REMOVALS  — upstream files OHM deletes
+# Apply the OHM customizations on an openstreetmap-website checkout:
+#   patches/   diffs for the upstream files OHM modifies
+#   overlays/  whole files OHM adds (and modified binaries)
+#   REMOVALS   upstream files OHM deletes
+# Used by CI. Exits non-zero if a patch fails.
 # Usage: ./scripts/apply.sh /path/to/checkout
 set -euo pipefail
 
-DEST="${1:-${OHM_WEBSITE_DIR:-/var/www}}"
-HERE="$(cd "$(dirname "$0")/.." && pwd)"
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+DEST="${1:-/var/www}"
 
-if [[ ! -d "$DEST" ]]; then
-  echo "Error: destination not found: $DEST" >&2
-  exit 1
-fi
-# Make DEST absolute — later steps change directory, so a relative path
-# would resolve against the wrong location.
+[ -d "$DEST" ] || { echo "Error: destination not found: $DEST" >&2; exit 1; }
+# Make it absolute: the copy step below runs from another folder.
 DEST="$(cd "$DEST" && pwd)"
 
-echo "Upstream base expected: $(cat "$HERE/UPSTREAM_BASE")"
+echo "Upstream base expected: $(cat "$ROOT/UPSTREAM_BASE")"
+echo "Applying patches to $DEST"
 
-echo "Applying patches from $HERE/patches to $DEST"
 FAILED=0
-while IFS= read -r -d '' p; do
-  rel="${p#"$HERE"/patches/}"
+for p in $(find "$ROOT/patches" -name '*.patch' | sort); do
+  f="${p#"$ROOT"/patches/}"; f="${f%.patch}"
   if git -C "$DEST" apply --3way "$p" 2>/dev/null || git -C "$DEST" apply "$p" 2>/dev/null; then
-    echo "  patch: ${rel%.patch}"
+    echo "  patch: $f"
   else
-    echo "  FAILED: ${rel%.patch}" >&2
+    echo "  FAILED: $f" >&2
     FAILED=$((FAILED + 1))
   fi
-done < <(find "$HERE/patches" -name '*.patch' -print0 | sort -z)
+done
 
-echo "Applying overlays from $HERE/overlays to $DEST"
-(
-  cd "$HERE/overlays"
-  find . -type f | while IFS= read -r f; do
-    target="$DEST/${f#./}"
-    mkdir -p "$(dirname "$target")"
-    cp "$f" "$target"
-    echo "  overlay: ${f#./}"
-  done
-)
+echo "Copying overlays"
+cp -R "$ROOT/overlays/." "$DEST"
 
-if [[ -f "$HERE/REMOVALS" ]]; then
-  while IFS= read -r f; do
-    [[ -n "$f" && -e "$DEST/$f" ]] && rm "$DEST/$f" && echo "  removed: $f"
-  done < "$HERE/REMOVALS"
-fi
+echo "Deleting the files listed in REMOVALS"
+while read -r f; do
+  [ -n "$f" ] || continue
+  rm -rf "$DEST/$f"
+done < "$ROOT/REMOVALS"
 
-if [[ "$FAILED" -gt 0 ]]; then
-  echo "Done with $FAILED failed patch(es) — resolve manually." >&2
+if [ "$FAILED" -gt 0 ]; then
+  echo "Done with $FAILED failed patch(es) — resolve them by hand." >&2
   exit 1
 fi
 echo "Done."

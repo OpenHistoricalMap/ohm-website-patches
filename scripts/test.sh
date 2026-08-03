@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
-# Run tests locally against the merged tree, like CI does.
+# Run the tests locally against merged/, like CI does.
 # Usage:
 #   ./scripts/test.sh                                # full suite
 #   ./scripts/test.sh test/system/some_test.rb:295   # single test
 #   PREPARE=1 ./scripts/test.sh ...                  # recompile assets (after JS/CSS/locale changes)
-#   WORKERS=2 ./scripts/test.sh                      # override test parallelism (default 4, like CI)
-#   WAIT=10 ./scripts/test.sh                        # override Capybara max wait (default 20; CI uses 10)
+#   WORKERS=2 ./scripts/test.sh                      # test parallelism (default 4, like CI)
+#   WAIT=10 ./scripts/test.sh                        # Capybara max wait (default 20; CI uses 10)
 set -euo pipefail
 cd "$(dirname "$0")/.."
 
-MERGED="${MERGED_DIR:-../ohm-website-merged}"
-[ -f "$MERGED/config/database.yml" ] || cp "$MERGED/config/docker.database.yml" "$MERGED/config/database.yml"
-[ -f "$MERGED/config/storage.yml" ] || cp "$MERGED/config/example.storage.yml" "$MERGED/config/storage.yml"
-touch "$MERGED/config/settings.local.yml"
+# Config files the OSM app needs but does not ship.
+[ -f merged/config/database.yml ] || cp merged/config/docker.database.yml merged/config/database.yml
+[ -f merged/config/storage.yml ] || cp merged/config/example.storage.yml merged/config/storage.yml
+touch merged/config/settings.local.yml
 
 docker compose up -d db memcached
 until docker compose exec -T db pg_isready -U postgres >/dev/null 2>&1; do sleep 1; done

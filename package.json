@@ -3,6 +3,17 @@
   "version": "0.1.0",
   "description": "OHM-specific overlays for files that conflict with upstream openstreetmap-website on merges",
   "private": true,
+  "scripts": {
+    "sync": "./scripts/sync.sh",
+    "build": "./scripts/build.sh",
+    "dev": "docker compose up",
+    "conflicts": "grep -rl '^<<<<<<<' merged --exclude-dir=node_modules --exclude-dir=.git || echo 'no conflicts'",
+    "export": "./scripts/export.sh --all",
+    "lint": "./scripts/lint.sh",
+    "test": "./scripts/test.sh",
+    "check": "npm run lint && npm test",
+    "reset": "docker compose down -v"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/OpenHistoricalMap/ohm-website-patches.git"

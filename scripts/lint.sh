@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# Run the same linters as the Lint workflow in ohm-website-merged, locally.
+# Run the same linters as the Lint workflow in ohm-website-merged, on merged/.
 # Usage: ./scripts/lint.sh
 set -euo pipefail
-cd "$(dirname "$0")/.."
+cd "$(dirname "$0")/.."   # docker compose reads the compose file from here
 
 docker compose run --rm --no-deps web bash -c '
   cd /app

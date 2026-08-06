@@ -1,5 +1,5 @@
 diff --git a/app/assets/javascripts/index.js b/app/assets/javascripts/index.js
-index 1ec154b85..919672bbd 100644
+index 0a9e4ae14..ee2972128 100644
 --- a/app/assets/javascripts/index.js
 +++ b/app/assets/javascripts/index.js
 @@ -10,9 +10,13 @@

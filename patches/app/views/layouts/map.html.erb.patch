@@ -1,8 +1,8 @@
 diff --git a/app/views/layouts/map.html.erb b/app/views/layouts/map.html.erb
-index 294f31761..c4ab0069e 100644
+index 89c77f654..de373be59 100644
 --- a/app/views/layouts/map.html.erb
 +++ b/app/views/layouts/map.html.erb
-@@ -31,10 +31,11 @@
+@@ -33,10 +33,11 @@
          <button type="button" class="btn-close position-absolute end-0 top-0 m-2 rounded-5 p-2" aria-label="<%= t("javascripts.close") %>"></button>
          <h2 class="me-4 text-break"><%= t "layouts.intro_header" %></h2>
          <p class="fs-6 fw-light"><%= t "layouts.intro_text" %></p>

@@ -1,0 +1,17 @@
+diff --git a/app/assets/javascripts/index/contextmenu.js b/app/assets/javascripts/index/contextmenu.js
+index 8ee499c9e..8b43ca1b8 100644
+--- a/app/assets/javascripts/index/contextmenu.js
++++ b/app/assets/javascripts/index/contextmenu.js
+@@ -2,6 +2,12 @@ OSM.initializations.push(function (map) {
+   const $contextMenu = $("#map-context-menu");
+   map.osm_contextmenu = new OSM.ContextMenu(map, $contextMenu);
+ 
++    const toggleMenuItem_v2 = ($element, enable) => {
++    $element.toggleClass("disabled", !enable)
++      .attr("aria-disabled", enable ? null : "true");
++  };
++
++
+   const toggleMenuItem = ($element, enable) => {
+     $element.toggleClass("disabled", !enable)
+       .attr("aria-disabled", enable ? null : "true");

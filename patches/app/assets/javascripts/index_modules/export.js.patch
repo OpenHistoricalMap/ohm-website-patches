@@ -1,8 +1,8 @@
 diff --git a/app/assets/javascripts/index_modules/export.js b/app/assets/javascripts/index_modules/export.js
-index 5b6c3e1e0..0da98ae65 100644
+index eeda82d76..f0bbb5712 100644
 --- a/app/assets/javascripts/index_modules/export.js
 +++ b/app/assets/javascripts/index_modules/export.js
-@@ -104,7 +104,6 @@ export default function (map) {
+@@ -103,7 +103,6 @@ export default function (map) {
        .addEventListener("turbo:before-fetch-request", function (event) {
          event.detail.fetchOptions.headers.Accept = "application/xml";
        });
@@ -10,7 +10,7 @@ index 5b6c3e1e0..0da98ae65 100644
      $("#export_overpass").on("click", async function (event) {
        event.preventDefault();
        const downloadUrl = $(this).attr("href");
-@@ -115,6 +114,9 @@ export default function (map) {
+@@ -114,6 +113,9 @@ export default function (map) {
      });
  
      update();

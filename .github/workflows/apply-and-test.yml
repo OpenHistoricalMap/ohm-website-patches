@@ -9,6 +9,57 @@ concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
   cancel-in-progress: true
 jobs:
+  # Same linters as the Lint workflow in ohm-website-merged, run here so a
+  # contributor sees the failure in their PR instead of after publishing.
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: website
+    steps:
+    - name: Checkout ohm-website-patches
+      uses: actions/checkout@v4
+      with:
+        path: patches
+    - name: Read upstream base
+      id: base
+      run: echo "ref=$(cat UPSTREAM_BASE)" >> "$GITHUB_OUTPUT"
+      working-directory: patches
+    - name: Checkout openstreetmap-website at upstream base
+      uses: actions/checkout@v4
+      with:
+        repository: openstreetmap/openstreetmap-website
+        ref: ${{ steps.base.outputs.ref }}
+        path: website
+    - name: Apply OHM patches, overlays and removals
+      run: ./scripts/apply.sh ../website
+      working-directory: patches
+    - name: Setup ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.4'
+        rubygems: 3.4.10
+        bundler-cache: true
+        working-directory: website
+    - name: Setup node
+      uses: actions/setup-node@v4
+      with:
+        node-version-file: website/.nvmrc
+        cache: yarn
+        cache-dependency-path: website/yarn.lock
+    - name: Install node modules
+      run: bundle exec bin/yarn install
+    - name: rubocop
+      run: bundle exec rubocop
+    - name: erb_lint
+      run: bundle exec erb_lint .
+    - name: herb
+      run: bundle exec herb analyze app/
+    - name: eslint
+      run: node_modules/.bin/eslint -c config/eslint.config.mjs --no-warn-ignored --format compact app/ config/ test/
+
   test:
     name: Ruby ${{ matrix.ruby }}
     strategy:
